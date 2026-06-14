@@ -1,0 +1,196 @@
+@startuml Mastermind Object Diagram
+
+title Diagrama de Objetos - Ejemplo de Juego en Progreso
+
+object ":Mastermind" as game {
+  estadoJuego = EN_PROGRESO
+  numeroJuegosPartida = 5
+  juegoActual = 2
+}
+
+object "Maria:Jugador" as jugador1 {
+  nombre = "Maria"
+  colorEspigaTanteo = ROJO
+  esCreadorCodigo = true
+}
+
+object "Juan:Jugador" as jugador2 {
+  nombre = "Juan"
+  colorEspigaTanteo = AZUL
+  esCreadorCodigo = false
+}
+
+object ":Puntuacion" as puntos1 {
+  puntos = 7
+  posicionClavijaTanteo = 7
+}
+
+object ":Puntuacion" as puntos2 {
+  puntos = 9
+  posicionClavijaTanteo = 9
+}
+
+object ":Tablero" as tablero {
+  numeroFilasUsadas = 3
+}
+
+object ":CodigoSecreto" as codigo {
+  posiciones = 5
+  oculto = true
+}
+
+object "clavija1:Clavija" as clav1 {
+  color = ROJO
+  tipo = GRANDE
+  posicion = 1
+}
+
+object "clavija2:Clavija" as clav2 {
+  color = AZUL
+  tipo = GRANDE
+  posicion = 2
+}
+
+object "clavija3:Clavija" as clav3 {
+  color = VERDE
+  tipo = GRANDE
+  posicion = 3
+}
+
+object "clavija4:Clavija" as clav4 {
+  color = ROJO
+  tipo = GRANDE
+  posicion = 4
+}
+
+object "clavija5:Clavija" as clav5 {
+  color = AMARILLO
+  tipo = GRANDE
+  posicion = 5
+}
+
+object "intento1:Intento" as int1 {
+  numeroIntento = 1
+}
+
+object ":Clavija" as int1_c1 {
+  color = VERDE
+  posicion = 1
+}
+
+object ":Clavija" as int1_c2 {
+  color = AZUL
+  posicion = 2
+}
+
+object ":Clavija" as int1_c3 {
+  color = ROJO
+  posicion = 3
+}
+
+object ":Clavija" as int1_c4 {
+  color = AMARILLO
+  posicion = 4
+}
+
+object ":Clavija" as int1_c5 {
+  color = ROSA
+  posicion = 5
+}
+
+object "resultado1:Resultado" as res1 {
+  espigasNegras = 1
+  espigasBlancas = 2
+}
+
+object "fila1:FilaIntento" as fila1 {
+  numeroFila = 1
+}
+
+object "filaPistas1:FilaPistas" as filapistas1 {
+  numeroFila = 1
+}
+
+object ":Espiga" as esp1 {
+  esNegra = true
+}
+
+object ":Espiga" as esp2 {
+  esNegra = false
+}
+
+object ":Espiga" as esp3 {
+  esNegra = false
+}
+
+object ":Escudo" as escudo {
+  activo = true
+}
+
+' Relaciones principales
+game -- jugador1
+game -- jugador2
+game -- tablero
+game -- codigo
+
+jugador1 -- puntos1
+jugador2 -- puntos2
+
+jugador1 -- codigo
+jugador2 -- int1
+
+tablero -- fila1
+tablero -- filapistas1
+tablero -- escudo
+
+codigo -- clav1
+codigo -- clav2
+codigo -- clav3
+codigo -- clav4
+codigo -- clav5
+
+codigo -- escudo
+
+int1 -- res1
+
+fila1 -- int1_c1
+fila1 -- int1_c2
+fila1 -- int1_c3
+fila1 -- int1_c4
+fila1 -- int1_c5
+
+filapistas1 -- esp1
+filapistas1 -- esp2
+filapistas1 -- esp3
+
+note top of codigo
+  Código secreto de Maria:
+  ROJO - AZUL - VERDE - ROJO - AMARILLO
+  (oculto con escudo)
+end note
+
+note bottom of int1
+  Primer intento de Juan:
+  VERDE - AZUL - ROJO - AMARILLO - ROSA
+end note
+
+note right of res1
+  Resultado del intento 1:
+  - 1 espiga negra (AZUL en posición 2)
+  - 2 espigas blancas (VERDE y ROJO en posiciones incorrectas)
+  - AMARILLO aparece pero en posición incorrecta
+  - ROSA no está en el código
+end note
+
+note left of puntos1
+  Maria lleva 7 puntos
+  de juegos anteriores
+end note
+
+note left of puntos2
+  Juan lleva 9 puntos
+  (va ganando)
+end note
+
+@enduml
+

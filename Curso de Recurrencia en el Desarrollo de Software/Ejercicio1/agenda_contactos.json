@@ -1,0 +1,239 @@
+{
+  "agendaContactos": {
+    "titulo": "Agenda de Contactos con Sustitutos",
+    "propietario": "Usuario Principal",
+    "fechaActualizacion": "2026-06-13",
+    "descripcion": "Agenda de contactos con sistema de personas alternativas para cada contacto",
+    "contactos": [
+      {
+        "id": "cont-001",
+        "nombre": "Pepito García Martínez",
+        "categoria": "Desarrollo",
+        "puesto": "Desarrollador Full Stack Senior",
+        "empresa": "TechCorp Solutions",
+        "telefono": "+34 612 345 678",
+        "email": "pepito.garcia@techcorp.com",
+        "disponibilidad": "Lunes a Viernes 9:00-18:00",
+        "especialidades": ["JavaScript", "Python", "React", "Node.js"],
+        "notas": "Contacto principal para temas de desarrollo web",
+        "alternativas": ["cont-002", "cont-005"]
+      },
+      {
+        "id": "cont-002",
+        "nombre": "María López Fernández",
+        "categoria": "Desarrollo",
+        "puesto": "Desarrolladora Frontend",
+        "empresa": "TechCorp Solutions",
+        "telefono": "+34 623 456 789",
+        "email": "maria.lopez@techcorp.com",
+        "disponibilidad": "Lunes a Viernes 10:00-19:00",
+        "especialidades": ["React", "Vue.js", "CSS", "TypeScript"],
+        "notas": "Especialista en interfaces de usuario",
+        "alternativas": ["cont-001", "cont-003"]
+      },
+      {
+        "id": "cont-003",
+        "nombre": "Carlos Ruiz Sánchez",
+        "categoria": "Desarrollo",
+        "puesto": "Desarrollador Backend",
+        "empresa": "TechCorp Solutions",
+        "telefono": "+34 634 567 890",
+        "email": "carlos.ruiz@techcorp.com",
+        "disponibilidad": "Lunes a Viernes 8:00-17:00",
+        "especialidades": ["Java", "Spring Boot", "PostgreSQL", "Docker"],
+        "notas": "Experto en arquitectura de backend y bases de datos",
+        "alternativas": ["cont-001", "cont-006"]
+      },
+      {
+        "id": "cont-004",
+        "nombre": "Ana Martínez Torres",
+        "categoria": "Diseño",
+        "puesto": "Diseñadora UX/UI Senior",
+        "empresa": "CreativeHub",
+        "telefono": "+34 645 678 901",
+        "email": "ana.martinez@creativehub.com",
+        "disponibilidad": "Lunes a Jueves 9:00-18:00",
+        "especialidades": ["Figma", "Adobe XD", "Prototyping", "User Research"],
+        "notas": "Contacto principal para diseño de interfaces",
+        "alternativas": ["cont-007", "cont-008"]
+      },
+      {
+        "id": "cont-005",
+        "nombre": "Luis Hernández Gómez",
+        "categoria": "Desarrollo",
+        "puesto": "Arquitecto de Software",
+        "empresa": "TechCorp Solutions",
+        "telefono": "+34 656 789 012",
+        "email": "luis.hernandez@techcorp.com",
+        "disponibilidad": "Lunes a Viernes 9:00-18:00",
+        "especialidades": ["Arquitectura", "Microservicios", "AWS", "Kubernetes"],
+        "notas": "Consultar para decisiones de arquitectura",
+        "alternativas": ["cont-003", "cont-006"]
+      },
+      {
+        "id": "cont-006",
+        "nombre": "Roberto Díaz Castro",
+        "categoria": "Desarrollo",
+        "puesto": "DevOps Engineer",
+        "empresa": "TechCorp Solutions",
+        "telefono": "+34 667 890 123",
+        "email": "roberto.diaz@techcorp.com",
+        "disponibilidad": "24/7 (guardias rotativas)",
+        "especialidades": ["Linux", "Docker", "Jenkins", "Terraform"],
+        "notas": "Contactar para temas de infraestructura y despliegues",
+        "alternativas": ["cont-005"]
+      },
+      {
+        "id": "cont-007",
+        "nombre": "Elena Vega Morales",
+        "categoria": "Diseño",
+        "puesto": "Diseñadora Gráfica",
+        "empresa": "CreativeHub",
+        "telefono": "+34 678 901 234",
+        "email": "elena.vega@creativehub.com",
+        "disponibilidad": "Lunes a Viernes 10:00-19:00",
+        "especialidades": ["Illustrator", "Photoshop", "Branding", "Marketing Visual"],
+        "notas": "Especialista en identidad visual y branding",
+        "alternativas": ["cont-004", "cont-008"]
+      },
+      {
+        "id": "cont-008",
+        "nombre": "Patricia Romero Blanco",
+        "categoria": "Diseño",
+        "puesto": "Product Designer",
+        "empresa": "CreativeHub",
+        "telefono": "+34 689 012 345",
+        "email": "patricia.romero@creativehub.com",
+        "disponibilidad": "Martes a Sábado 9:00-18:00",
+        "especialidades": ["Product Design", "Design Systems", "Sketch", "InVision"],
+        "notas": "Experta en sistemas de diseño",
+        "alternativas": ["cont-004"]
+      },
+      {
+        "id": "cont-009",
+        "nombre": "Jorge Navarro Pérez",
+        "categoria": "Gestión",
+        "puesto": "Project Manager",
+        "empresa": "TechCorp Solutions",
+        "telefono": "+34 690 123 456",
+        "email": "jorge.navarro@techcorp.com",
+        "disponibilidad": "Lunes a Viernes 8:30-18:30",
+        "especialidades": ["Scrum", "Agile", "Jira", "Gestión de equipos"],
+        "notas": "Contacto principal para seguimiento de proyectos",
+        "alternativas": ["cont-010"]
+      },
+      {
+        "id": "cont-010",
+        "nombre": "Sandra Gil Moreno",
+        "categoria": "Gestión",
+        "puesto": "Scrum Master",
+        "empresa": "TechCorp Solutions",
+        "telefono": "+34 601 234 567",
+        "email": "sandra.gil@techcorp.com",
+        "disponibilidad": "Lunes a Viernes 9:00-18:00",
+        "especialidades": ["Scrum", "Kanban", "Facilitación", "Coaching"],
+        "notas": "Facilita ceremonias ágiles y resuelve impedimentos",
+        "alternativas": ["cont-009"]
+      },
+      {
+        "id": "cont-011",
+        "nombre": "Miguel Ángel Serrano",
+        "categoria": "QA",
+        "puesto": "QA Lead",
+        "empresa": "TechCorp Solutions",
+        "telefono": "+34 612 345 987",
+        "email": "miguel.serrano@techcorp.com",
+        "disponibilidad": "Lunes a Viernes 9:00-18:00",
+        "especialidades": ["Testing Automation", "Selenium", "Cypress", "Performance Testing"],
+        "notas": "Responsable de calidad y testing",
+        "alternativas": ["cont-012"]
+      },
+      {
+        "id": "cont-012",
+        "nombre": "Laura Jiménez Ortiz",
+        "categoria": "QA",
+        "puesto": "QA Automation Engineer",
+        "empresa": "TechCorp Solutions",
+        "telefono": "+34 623 456 098",
+        "email": "laura.jimenez@techcorp.com",
+        "disponibilidad": "Lunes a Viernes 10:00-19:00",
+        "especialidades": ["Automation", "Python", "Robot Framework", "API Testing"],
+        "notas": "Experta en automatización de pruebas",
+        "alternativas": ["cont-011"]
+      },
+      {
+        "id": "cont-013",
+        "nombre": "David Torres Ramos",
+        "categoria": "Soporte",
+        "puesto": "Technical Support Manager",
+        "empresa": "TechCorp Solutions",
+        "telefono": "+34 634 567 321",
+        "email": "david.torres@techcorp.com",
+        "disponibilidad": "Lunes a Viernes 8:00-20:00",
+        "especialidades": ["Atención al cliente", "Troubleshooting", "Documentación técnica"],
+        "notas": "Contacto para incidencias y soporte técnico",
+        "alternativas": ["cont-014", "cont-015"]
+      },
+      {
+        "id": "cont-014",
+        "nombre": "Carmen Flores Navarro",
+        "categoria": "Soporte",
+        "puesto": "Support Engineer",
+        "empresa": "TechCorp Solutions",
+        "telefono": "+34 645 678 432",
+        "email": "carmen.flores@techcorp.com",
+        "disponibilidad": "Lunes a Viernes 9:00-18:00",
+        "especialidades": ["Technical Support", "SQL", "Debugging"],
+        "notas": "Soporte técnico nivel 2",
+        "alternativas": ["cont-013", "cont-015"]
+      },
+      {
+        "id": "cont-015",
+        "nombre": "Francisco Morales Cruz",
+        "categoria": "Soporte",
+        "puesto": "Junior Support Specialist",
+        "empresa": "TechCorp Solutions",
+        "telefono": "+34 656 789 543",
+        "email": "francisco.morales@techcorp.com",
+        "disponibilidad": "Lunes a Viernes 10:00-19:00",
+        "especialidades": ["Help Desk", "Ticketing Systems", "Basic Troubleshooting"],
+        "notas": "Soporte técnico nivel 1",
+        "alternativas": ["cont-014"]
+      }
+    ],
+    "categorias": [
+      {
+        "id": "Desarrollo",
+        "descripcion": "Equipo de desarrollo de software",
+        "color": "#4CAF50"
+      },
+      {
+        "id": "Diseño",
+        "descripcion": "Equipo de diseño y experiencia de usuario",
+        "color": "#2196F3"
+      },
+      {
+        "id": "Gestión",
+        "descripcion": "Gestión de proyectos y equipos",
+        "color": "#FF9800"
+      },
+      {
+        "id": "QA",
+        "descripcion": "Control de calidad y testing",
+        "color": "#9C27B0"
+      },
+      {
+        "id": "Soporte",
+        "descripcion": "Soporte técnico y atención al cliente",
+        "color": "#F44336"
+      }
+    ],
+    "estadisticas": {
+      "totalContactos": 15,
+      "totalCategorias": 5,
+      "contactosConAlternativas": 15,
+      "relacionesAlternativas": 25
+    }
+  }
+}
+

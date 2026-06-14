@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<horarioAcademico>
+  <titulo>Horario de Artes Escénicas</titulo>
+
+  <jornadaDiaria>
+    <horaInicio>08:00</horaInicio>
+    <horaFin>16:30</horaFin>
+    <descripcion>Jornada académica diaria con descanso y almuerzo incluidos</descripcion>
+  </jornadaDiaria>
+
+  <diasSemana>
+    <dia nombre="Lunes">
+      <actividades>
+        <actividad>
+          <horaInicio>08:00</horaInicio>
+          <horaFin>10:00</horaFin>
+          <asignatura>Acondicionamiento Físico</asignatura>
+          <duracionMinutos>120</duracionMinutos>
+        </actividad>
+        <actividad tipo="descanso">
+          <horaInicio>10:00</horaInicio>
+          <horaFin>10:30</horaFin>
+          <asignatura>Descanso</asignatura>
+          <duracionMinutos>30</duracionMinutos>
+        </actividad>
+        <actividad>
+          <horaInicio>10:30</horaInicio>
+          <horaFin>13:00</horaFin>
+          <asignatura>Interpretación Teatral</asignatura>
+          <duracionMinutos>150</duracionMinutos>
+        </actividad>
+        <actividad tipo="almuerzo">
+          <horaInicio>13:00</horaInicio>
+          <horaFin>14:30</horaFin>
+          <asignatura>Almuerzo</asignatura>
+          <duracionMinutos>90</duracionMinutos>
+        </actividad>
+        <actividad>
+          <horaInicio>14:30</horaInicio>
+          <horaFin>16:30</horaFin>
+          <asignatura>Historia de las Artes</asignatura>
+          <duracionMinutos>120</duracionMinutos>
+        </actividad>
+      </actividades>
+    </dia>
+
+    <dia nombre="Martes">
+      <actividades>
+        <actividad>
+          <horaInicio>08:00</horaInicio>
+          <horaFin>10:00</horaFin>
+          <asignatura>Análisis de Textos</asignatura>
+          <duracionMinutos>120</duracionMinutos>
+        </actividad>
+        <actividad tipo="descanso">
+          <horaInicio>10:00</horaInicio>
+          <horaFin>10:30</horaFin>
+          <asignatura>Descanso</asignatura>
+          <duracionMinutos>30</duracionMinutos>
+        </actividad>
+        <actividad>
+          <horaInicio>10:30</horaInicio>
+          <horaFin>13:00</horaFin>
+          <asignatura>Taller de Creación</asignatura>
+          <duracionMinutos>150</duracionMinutos>
+        </actividad>
+        <actividad tipo="almuerzo">
+          <horaInicio>13:00</horaInicio>
+          <horaFin>14:30</horaFin>
+          <asignatura>Almuerzo</asignatura>
+          <duracionMinutos>90</duracionMinutos>
+        </actividad>
+        <actividad>
+          <horaInicio>14:30</horaInicio>
+          <horaFin>16:30</horaFin>
+          <asignatura>Producción Escénica</asignatura>
+          <duracionMinutos>120</duracionMinutos>
+        </actividad>
+      </actividades>
+    </dia>
+
+    <dia nombre="Miércoles">
+      <actividades>
+        <actividad>
+          <horaInicio>08:00</horaInicio>
+          <horaFin>10:00</horaFin>
+          <asignatura>Danza y Movimiento</asignatura>
+          <duracionMinutos>120</duracionMinutos>
+        </actividad>
+        <actividad tipo="descanso">
+          <horaInicio>10:00</horaInicio>
+          <horaFin>10:30</horaFin>
+          <asignatura>Descanso</asignatura>
+          <duracionMinutos>30</duracionMinutos>
+        </actividad>
+        <actividad>
+          <horaInicio>10:30</horaInicio>
+          <horaFin>13:00</horaFin>
+          <asignatura>Interpretación Frente a Cámara</asignatura>
+          <duracionMinutos>150</duracionMinutos>
+        </actividad>
+        <actividad tipo="almuerzo">
+          <horaInicio>13:00</horaInicio>
+          <horaFin>14:30</horaFin>
+          <asignatura>Almuerzo</asignatura>
+          <duracionMinutos>90</duracionMinutos>
+        </actividad>
+        <actividad>
+          <horaInicio>14:30</horaInicio>
+          <horaFin>16:30</horaFin>
+          <asignatura>Expresión Corporal</asignatura>
+          <duracionMinutos>120</duracionMinutos>
+        </actividad>
+      </actividades>
+    </dia>
+
+    <dia nombre="Jueves">
+      <actividades>
+        <actividad>
+          <horaInicio>08:00</horaInicio>
+          <horaFin>10:00</horaFin>
+          <asignatura>Técnica Vocal</asignatura>
+          <duracionMinutos>120</duracionMinutos>
+        </actividad>
+        <actividad tipo="descanso">
+          <horaInicio>10:00</horaInicio>
+          <horaFin>10:30</horaFin>
+          <asignatura>Descanso</asignatura>
+          <duracionMinutos>30</duracionMinutos>
+        </actividad>
+        <actividad>
+          <horaInicio>10:30</horaInicio>
+          <horaFin>13:00</horaFin>
+          <asignatura>Dramaturgia</asignatura>
+          <duracionMinutos>150</duracionMinutos>
+        </actividad>
+        <actividad tipo="almuerzo">
+          <horaInicio>13:00</horaInicio>
+          <horaFin>14:30</horaFin>
+          <asignatura>Almuerzo</asignatura>
+          <duracionMinutos>90</duracionMinutos>
+        </actividad>
+        <actividad>
+          <horaInicio>14:30</horaInicio>
+          <horaFin>16:30</horaFin>
+          <asignatura>Acrobacia / Esgrima</asignatura>
+          <duracionMinutos>120</duracionMinutos>
+        </actividad>
+      </actividades>
+    </dia>
+
+    <dia nombre="Viernes">
+      <actividades>
+        <actividad>
+          <horaInicio>08:00</horaInicio>
+          <horaFin>10:00</horaFin>
+          <asignatura>Entrenamiento Actoral</asignatura>
+          <duracionMinutos>120</duracionMinutos>
+        </actividad>
+        <actividad tipo="descanso">
+          <horaInicio>10:00</horaInicio>
+          <horaFin>10:30</horaFin>
+          <asignatura>Descanso</asignatura>
+          <duracionMinutos>30</duracionMinutos>
+        </actividad>
+        <actividad>
+          <horaInicio>10:30</horaInicio>
+          <horaFin>13:00</horaFin>
+          <asignatura>Ensayos de Montaje</asignatura>
+          <duracionMinutos>150</duracionMinutos>
+        </actividad>
+        <actividad tipo="almuerzo">
+          <horaInicio>13:00</horaInicio>
+          <horaFin>14:30</horaFin>
+          <asignatura>Almuerzo</asignatura>
+          <duracionMinutos>90</duracionMinutos>
+        </actividad>
+        <actividad>
+          <horaInicio>14:30</horaInicio>
+          <horaFin>16:30</horaFin>
+          <asignatura>Proyecto de Grado</asignatura>
+          <duracionMinutos>120</duracionMinutos>
+        </actividad>
+      </actividades>
+    </dia>
+  </diasSemana>
+
+  <resumen>
+    <totalDiasSemana>5</totalDiasSemana>
+    <totalActividadesPorDia>5</totalActividadesPorDia>
+    <horasAcademicasDiarias>8.5</horasAcademicasDiarias>
+    <horasAcademicasSemanales>42.5</horasAcademicasSemanales>
+    <horasClaseDiarias>6.5</horasClaseDiarias>
+    <horasClaseSemanales>32.5</horasClaseSemanales>
+  </resumen>
+</horarioAcademico>
+

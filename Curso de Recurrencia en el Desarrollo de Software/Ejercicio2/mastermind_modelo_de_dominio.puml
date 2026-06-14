@@ -1,0 +1,201 @@
+@startuml Mastermind Domain Model
+
+title Modelo de Dominio - Juego Mastermind
+
+' Enumeraciones
+enum Color {
+    ROJO
+    AZUL
+    VERDE
+    AMARILLO
+    ROSA
+    BLANCO
+    NEGRO
+    MARRON
+}
+
+enum TipoClavija {
+    GRANDE
+    BLANCA
+    NEGRA
+}
+
+enum EstadoJuego {
+    ESPERANDO_CODIGO
+    EN_PROGRESO
+    FINALIZADO
+}
+
+' Clases principales
+class Mastermind {
+    - estadoJuego: EstadoJuego
+    - numeroJuegosPartida: int
+    - juegoActual: int
+    + iniciarPartida()
+    + siguienteJuego()
+    + finalizarPartida()
+    + obtenerGanador(): Jugador
+}
+
+class Jugador {
+    - nombre: String
+    - colorEspigaTanteo: Color
+    - esCreadorCodigo: boolean
+    + crearCodigoSecreto()
+    + intentarAdivinar()
+    + darPistas()
+    + actualizarPuntuacion(puntos: int)
+}
+
+class Puntuacion {
+    - puntos: int
+    - posicionClavijaTanteo: int
+    + sumarPuntos(cantidad: int)
+    + restarPuntos(cantidad: int)
+    + obtenerPuntos(): int
+    + actualizarPosicionClavija()
+}
+
+class Tablero {
+    - numeroFilasUsadas: int
+    + colocarIntento(fila: int, intento: Intento)
+    + colocarPistas(fila: int, resultado: Resultado)
+    + limpiar()
+    + estaLleno(): boolean
+}
+
+class FilaIntento {
+    - numeroFila: int
+    + colocarClavijas(clavijas: List<Clavija>)
+    + obtenerClavijas(): List<Clavija>
+}
+
+class FilaPistas {
+    - numeroFila: int
+    + colocarEspigas(espigas: List<Espiga>)
+    + obtenerEspigas(): List<Espiga>
+}
+
+class CodigoSecreto {
+    - posiciones: int = 5
+    - oculto: boolean
+    + crearCodigo(clavijas: List<Clavija>)
+    + validar(): boolean
+    + comparar(intento: Intento): Resultado
+    + ocultar()
+    + revelar()
+}
+
+class Intento {
+    - numeroIntento: int
+    + agregarClavija(posicion: int, clavija: Clavija)
+    + obtenerClavijas(): List<Clavija>
+    + esValido(): boolean
+}
+
+class Resultado {
+    - espigasNegras: int
+    - espigasBlancas: int
+    + calcular(codigo: CodigoSecreto, intento: Intento)
+    + esAcierto(): boolean
+    + obtenerEspigasNegras(): int
+    + obtenerEspigasBlancas(): int
+}
+
+class Clavija {
+    - color: Color
+    - tipo: TipoClavija
+    - posicion: int
+    + obtenerColor(): Color
+}
+
+class Espiga {
+    - esNegra: boolean
+    + esAcierto(): boolean
+}
+
+class EspigaTanteo {
+    - color: Color
+    - posicion: int
+    + mover(nuevaPosicion: int)
+}
+
+class Escudo {
+    - activo: boolean
+    + ocultar(codigo: CodigoSecreto)
+    + revelar()
+}
+
+class Compartimento {
+    - capacidad: int
+    - tipo: String
+    + guardarClavijas(clavijas: List<Clavija>)
+    + guardarEspigas(espigas: List<Espiga>)
+    + obtenerDisponibles(): int
+}
+
+' Relaciones
+Mastermind "1" -- "2" Jugador : tiene >
+Mastermind "1" *-- "1" Tablero : contiene >
+Mastermind "1" -- "1" CodigoSecreto : gestiona >
+
+Jugador "1" *-- "1" Puntuacion : tiene >
+Jugador "1" -- "0..*" Intento : realiza >
+Jugador "1" -- "0..1" CodigoSecreto : crea >
+
+Tablero "1" *-- "12" FilaIntento : contiene >
+Tablero "1" *-- "12" FilaPistas : contiene >
+Tablero "1" *-- "2" Compartimento : tiene >
+Tablero "1" *-- "1" Escudo : incluye >
+Tablero "1" -- "5" CodigoSecreto : aloja >
+
+FilaIntento "1" o-- "5" Clavija : contiene >
+FilaPistas "1" o-- "0..5" Espiga : contiene >
+
+CodigoSecreto "1" o-- "5" Clavija : compuesto de >
+CodigoSecreto "1" -- "1" Escudo : ocultado por >
+
+Intento "1" o-- "5" Clavija : compuesto de >
+Intento "1" -- "1" Resultado : genera >
+
+Resultado "1" -- "0..5" Espiga : representa con >
+
+Clavija -- Color : tiene >
+Clavija -- TipoClavija : es de tipo >
+
+Jugador "1" -- "1" EspigaTanteo : usa >
+EspigaTanteo -- Color : tiene >
+
+Puntuacion "1" -- "1" EspigaTanteo : reflejada en >
+
+Compartimento "1" o-- "0..*" Clavija : almacena >
+Compartimento "1" o-- "0..*" Espiga : almacena >
+
+note right of CodigoSecreto
+  El código secreto está compuesto
+  por 5 clavijas de colores que pueden
+  repetirse. Se oculta con el escudo.
+end note
+
+note right of Resultado
+  - Espiga negra: color y posición correctos
+  - Espiga blanca: color correcto, posición incorrecta
+  - Error en pistas: penalización de 3 puntos
+end note
+
+note left of Puntuacion
+  Los puntos se calculan según el
+  número de filas usadas por el
+  oponente para acertar el código.
+end note
+
+note bottom of Tablero
+  - 12 filas para intentos (clavijas grandes)
+  - 12 filas para pistas (espigas)
+  - 5 agujeros para código secreto
+  - 2 filas para tanteos
+  - Compartimentos para almacenamiento
+end note
+
+@enduml
+

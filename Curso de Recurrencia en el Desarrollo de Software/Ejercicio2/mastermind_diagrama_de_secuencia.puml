@@ -1,0 +1,120 @@
+@startuml Mastermind Sequence
+
+title Diagrama de Secuencia - Una Ronda de Mastermind
+
+actor "Jugador 1\n(Creador)" as J1
+actor "Jugador 2\n(Adivinador)" as J2
+participant "Mastermind" as Game
+participant "Tablero" as Board
+participant "CodigoSecreto" as Secret
+participant "Intento" as Attempt
+participant "Resultado" as Result
+participant "Puntuacion" as Score
+
+== Inicialización del Juego ==
+
+J1 -> Game: iniciarJuego()
+activate Game
+
+Game -> Board: limpiar()
+activate Board
+Board --> Game: ok
+deactivate Board
+
+J1 -> Secret: crearCodigo([5 colores])
+activate Secret
+Secret -> Secret: validar()
+Secret --> J1: código creado
+deactivate Secret
+
+J1 -> Secret: ocultar()
+activate Secret
+Secret --> J1: código oculto
+deactivate Secret
+
+== Intentos de Adivinación ==
+
+loop hasta acertar o 12 intentos
+
+    J2 -> Attempt: realizarIntento([5 colores])
+    activate Attempt
+    Attempt --> J2: intento creado
+    deactivate Attempt
+
+    J2 -> Board: colocarIntento(fila, intento)
+    activate Board
+    Board --> J2: intento colocado
+    deactivate Board
+
+    J1 -> Result: calcular(codigoSecreto, intento)
+    activate Result
+    Result -> Secret: comparar(intento)
+    activate Secret
+
+    Secret -> Secret: contarAciertos()
+    Secret -> Secret: contarColoresCorrectos()
+
+    Secret --> Result: espigasNegras, espigasBlancas
+    deactivate Secret
+
+    Result --> J1: resultado calculado
+    deactivate Result
+
+    alt Error en pistas
+        J2 -> J1: verificarPistas()
+        J1 -> Score: penalizar(3)
+        activate Score
+        Score --> J1: penalización aplicada
+        deactivate Score
+        note right: Debe repetir la serie
+    else Pistas correctas
+        J1 -> Board: colocarPistas(fila, resultado)
+        activate Board
+        Board --> J1: pistas colocadas
+        deactivate Board
+    end
+
+    alt Código acertado (todas espigas negras)
+        Result -> Game: esAcierto()
+        activate Game
+        note right
+          El juego termina
+          Se calculan puntos
+        end note
+    end
+
+end
+
+== Actualización de Puntuación ==
+
+Game -> Score: calcularPuntos(filasUsadas)
+activate Score
+Score -> Score: puntos = filasUsadas
+Score --> Game: puntos calculados
+deactivate Score
+
+Game -> J1: actualizarPuntuacion(puntos)
+activate J1
+J1 --> Game: puntuación actualizada
+deactivate J1
+
+== Finalización y Cambio de Roles ==
+
+Game -> Game: cambiarRoles()
+note right
+  Los jugadores intercambian
+  roles para el siguiente juego
+end note
+
+alt Partida completa
+    Game -> Game: finalizarPartida()
+    Game -> Score: obtenerGanador()
+    activate Score
+    Score --> Game: ganador
+    deactivate Score
+end
+
+deactivate Game
+
+@enduml
+

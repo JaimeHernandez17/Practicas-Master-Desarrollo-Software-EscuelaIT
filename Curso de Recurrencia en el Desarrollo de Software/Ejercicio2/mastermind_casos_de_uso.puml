@@ -1,0 +1,65 @@
+@startuml Mastermind Use Cases
+
+title Casos de Uso - Juego Mastermind
+
+left to right direction
+
+actor "Jugador Creador\ndel Código" as JugadorCreador
+actor "Jugador\nAdivinador" as JugadorAdivinador
+
+rectangle "Mastermind Game" {
+  usecase "Iniciar Partida" as UC1
+  usecase "Crear Código Secreto" as UC2
+  usecase "Ocultar Código\ncon Escudo" as UC3
+  usecase "Realizar Intento" as UC4
+  usecase "Dar Pistas" as UC5
+  usecase "Calcular Resultado" as UC6
+  usecase "Acertar Código" as UC7
+  usecase "Actualizar Puntuación" as UC8
+  usecase "Cambiar Roles" as UC9
+  usecase "Finalizar Partida" as UC10
+  usecase "Penalizar por\nError en Pistas" as UC11
+}
+
+JugadorCreador --> UC1
+JugadorAdivinador --> UC1
+
+JugadorCreador --> UC2
+UC2 ..> UC3 : <<include>>
+
+JugadorAdivinador --> UC4
+UC4 ..> UC5 : <<include>>
+
+JugadorCreador --> UC5
+UC5 ..> UC6 : <<include>>
+
+UC4 ..> UC7 : <<extend>>\n[código acertado]
+
+UC7 ..> UC8 : <<include>>
+UC5 ..> UC11 : <<extend>>\n[error en pistas]
+UC11 ..> UC8 : <<include>>
+
+UC8 ..> UC9 : <<extend>>\n[fin del juego]
+
+UC9 ..> UC10 : <<extend>>\n[juegos completados]
+
+note right of UC2
+  Se crean 5 clavijas de colores
+  Puede repetirse color
+  8 colores disponibles
+end note
+
+note right of UC5
+  - Espiga negra: color y posición correctos
+  - Espiga blanca: color correcto, posición incorrecta
+  - Si hay error: penalización de 3 puntos
+    y repetir serie
+end note
+
+note bottom of UC8
+  Puntos = número de filas utilizadas
+  por el adivinador hasta acertar
+end note
+
+@enduml
+

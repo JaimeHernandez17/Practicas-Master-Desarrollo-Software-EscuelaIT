@@ -1,0 +1,76 @@
+@startuml Mastermind State Diagram
+
+title Diagrama de Estados - Juego Mastermind
+
+[*] --> PartidaIniciada : iniciar partida
+
+state PartidaIniciada {
+  [*] --> EsperandoCodigo
+
+  EsperandoCodigo --> CodigoCreado : crear código secreto
+
+  CodigoCreado --> CodigoOculto : ocultar con escudo
+
+  state JuegoEnCurso {
+    [*] --> EsperandoIntento
+
+    EsperandoIntento --> IntentoRealizado : jugador propone combinación
+
+    IntentoRealizado --> DandoPistas : evaluar intento
+
+    DandoPistas --> ErrorEnPistas : pistas incorrectas
+    ErrorEnPistas --> PenalizacionAplicada : aplicar penalización (3 puntos)
+    PenalizacionAplicada --> EsperandoIntento : repetir serie
+
+    DandoPistas --> PistasColocadas : pistas correctas
+
+    PistasColocadas --> CodigoAcertado : todas las posiciones correctas
+    PistasColocadas --> EsperandoIntento : código no acertado\n[intentos < 12]
+    PistasColocadas --> TableroLleno : intentos agotados\n[intentos = 12]
+  }
+
+  CodigoOculto --> JuegoEnCurso
+
+  JuegoEnCurso --> CalculandoPuntuacion : código acertado o\ntablero lleno
+
+  CalculandoPuntuacion --> ActualizandoTanteo : calcular puntos
+
+  ActualizandoTanteo --> JuegoFinalizado : actualizar marcador
+
+  JuegoFinalizado --> CambiandoRoles : preparar siguiente juego
+
+  CambiandoRoles --> EsperandoCodigo : continuar partida\n[juegos < límite]
+  CambiandoRoles --> PartidaFinalizada : terminar partida\n[juegos = límite]
+}
+
+state CodigoAcertado
+note right of CodigoAcertado: Todas las espigas son negras
+
+state TableroLleno
+note right of TableroLleno: Se usaron las 12 filas disponibles
+
+state ErrorEnPistas
+note right of ErrorEnPistas
+  El creador del código se equivoca
+  al dar las pistas
+end note
+
+PartidaIniciada --> PartidaFinalizada : determinar ganador
+
+PartidaFinalizada --> [*]
+
+note right of JuegoEnCurso
+  En cada intento:
+  - El adivinador propone 5 colores
+  - El creador da pistas con espigas
+  - Espiga negra = color y posición correctos
+  - Espiga blanca = color correcto, posición incorrecta
+end note
+
+note left of CalculandoPuntuacion
+  Puntos del creador = número de filas
+  usadas por el adivinador
+end note
+
+@enduml
+

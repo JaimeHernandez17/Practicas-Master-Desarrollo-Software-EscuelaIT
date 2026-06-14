@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curriculumVitae>
+  <datosPersonales>
+    <nombre>Michelle Torres Quiroz</nombre>
+    <edad>25</edad>
+    <domicilio>
+      <calle>Av. Siempreviva</calle>
+      <numero>17</numero>
+      <colonia>Anzures</colonia>
+      <ciudad>México D.F.</ciudad>
+      <codigoPostal>04565</codigoPostal>
+    </domicilio>
+    <telefono>55-34-45-95</telefono>
+    <email>curriculum@gmail.com</email>
+  </datosPersonales>
+
+  <perfil>
+    Tengo un carácter de mujer emprendedora, porque en los negocios o actividades laborales, suelo ser muy dinámica, responsable, puntual, puedo llevar la responsabilidad de un equipo de personas, visionaria y, sobre todo, motivadora, etc.
+  </perfil>
+
+  <estudiosAcademicos>
+    <estudio>
+      <institucion>Universidad Autónoma de México</institucion>
+      <facultad>Facultad de Ciencias de la Comunicación</facultad>
+      <titulo>Licenciatura en Ciencias de la Comunicación</titulo>
+      <generacion>
+        <inicio>2001</inicio>
+        <fin>2005</fin>
+      </generacion>
+    </estudio>
+    <estudio>
+      <institucion>Universidad Autónoma de México</institucion>
+      <facultad>Facultad de Derecho</facultad>
+      <titulo>Licenciatura en Derecho</titulo>
+      <generacion>
+        <inicio>1996</inicio>
+        <fin>2000</fin>
+      </generacion>
+    </estudio>
+  </estudiosAcademicos>
+
+  <actividadesLaborales>
+    <actividad>
+      <puesto>Asesor Jurídico para Revista México</puesto>
+      <periodo>
+        <inicio>2000</inicio>
+        <fin>2011</fin>
+      </periodo>
+    </actividad>
+    <actividad>
+      <puesto>Creadora publicitaria y editora de revista y periódico</puesto>
+      <periodo>
+        <inicio>2000</inicio>
+        <fin>2011</fin>
+      </periodo>
+    </actividad>
+    <actividad>
+      <puesto>Escritora de libros</puesto>
+      <periodo>
+        <inicio>2008</inicio>
+        <fin>2011</fin>
+      </periodo>
+    </actividad>
+    <actividad>
+      <puesto>Redactora de artículos para website</puesto>
+      <periodo>
+        <inicio>2005</inicio>
+        <fin>2011</fin>
+      </periodo>
+      <localizacion>
+        <pais>España</pais>
+        <pais>Estados Unidos</pais>
+        <pais>México</pais>
+      </localizacion>
+    </actividad>
+  </actividadesLaborales>
+
+  <habilidadesYConocimientos>
+    <habilidades>
+      <habilidad>
+        <nombre>Administrativas</nombre>
+        <modalidad>online</modalidad>
+        <constancia>SEC</constancia>
+        <año>2008</año>
+      </habilidad>
+    </habilidades>
+    <conocimientos>
+      <conocimiento>
+        <nombre>contable</nombre>
+        <modalidad>online</modalidad>
+        <constancia>SEC</constancia>
+        <año>2008</año>
+      </conocimiento>
+      <software>
+        <categoria nombre="Windows Office 2007">
+          <herramienta>Excel</herramienta>
+          <herramienta>Word</herramienta>
+          <herramienta>Publisher</herramienta>
+        </categoria>
+        <categoria nombre="Adobe">
+          <herramienta>Corel Draw</herramienta>
+          <herramienta>Photodeluxe</herramienta>
+        </categoria>
+      </software>
+      <equipamiento>
+        <item>Manejo de equipo de cómputo</item>
+        <item>Impresoras</item>
+        <item>Copiadoras</item>
+      </equipamiento>
+      <idiomas>
+        <idioma>
+          <nombre>Inglés</nombre>
+          <dominio>90%</dominio>
+        </idioma>
+      </idiomas>
+    </conocimientos>
+  </habilidadesYConocimientos>
+</curriculumVitae>
+

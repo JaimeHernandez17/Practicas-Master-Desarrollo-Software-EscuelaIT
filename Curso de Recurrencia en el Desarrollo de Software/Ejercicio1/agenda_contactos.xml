@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agendaContactos>
+  <titulo>Agenda de Contactos con Sustitutos</titulo>
+  <propietario>Usuario Principal</propietario>
+  <fechaActualizacion>2026-06-13</fechaActualizacion>
+  <descripcion>Agenda de contactos con sistema de personas alternativas para cada contacto</descripcion>
+
+  <contactos>
+    <!-- Equipo de Desarrollo -->
+    <contacto id="cont-001" categoria="Desarrollo">
+      <nombre>Pepito García Martínez</nombre>
+      <puesto>Desarrollador Full Stack Senior</puesto>
+      <empresa>TechCorp Solutions</empresa>
+      <telefono>+34 612 345 678</telefono>
+      <email>pepito.garcia@techcorp.com</email>
+      <disponibilidad>Lunes a Viernes 9:00-18:00</disponibilidad>
+      <especialidades>
+        <especialidad>JavaScript</especialidad>
+        <especialidad>Python</especialidad>
+        <especialidad>React</especialidad>
+        <especialidad>Node.js</especialidad>
+      </especialidades>
+      <notas>Contacto principal para temas de desarrollo web</notas>
+      <alternativas>
+        <contactoRef>cont-002</contactoRef>
+        <contactoRef>cont-005</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <contacto id="cont-002" categoria="Desarrollo">
+      <nombre>María López Fernández</nombre>
+      <puesto>Desarrolladora Frontend</puesto>
+      <empresa>TechCorp Solutions</empresa>
+      <telefono>+34 623 456 789</telefono>
+      <email>maria.lopez@techcorp.com</email>
+      <disponibilidad>Lunes a Viernes 10:00-19:00</disponibilidad>
+      <especialidades>
+        <especialidad>React</especialidad>
+        <especialidad>Vue.js</especialidad>
+        <especialidad>CSS</especialidad>
+        <especialidad>TypeScript</especialidad>
+      </especialidades>
+      <notas>Especialista en interfaces de usuario</notas>
+      <alternativas>
+        <contactoRef>cont-001</contactoRef>
+        <contactoRef>cont-003</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <contacto id="cont-003" categoria="Desarrollo">
+      <nombre>Carlos Ruiz Sánchez</nombre>
+      <puesto>Desarrollador Backend</puesto>
+      <empresa>TechCorp Solutions</empresa>
+      <telefono>+34 634 567 890</telefono>
+      <email>carlos.ruiz@techcorp.com</email>
+      <disponibilidad>Lunes a Viernes 8:00-17:00</disponibilidad>
+      <especialidades>
+        <especialidad>Java</especialidad>
+        <especialidad>Spring Boot</especialidad>
+        <especialidad>PostgreSQL</especialidad>
+        <especialidad>Docker</especialidad>
+      </especialidades>
+      <notas>Experto en arquitectura de backend y bases de datos</notas>
+      <alternativas>
+        <contactoRef>cont-001</contactoRef>
+        <contactoRef>cont-006</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <!-- Equipo de Diseño -->
+    <contacto id="cont-004" categoria="Diseño">
+      <nombre>Ana Martínez Torres</nombre>
+      <puesto>Diseñadora UX/UI Senior</puesto>
+      <empresa>CreativeHub</empresa>
+      <telefono>+34 645 678 901</telefono>
+      <email>ana.martinez@creativehub.com</email>
+      <disponibilidad>Lunes a Jueves 9:00-18:00</disponibilidad>
+      <especialidades>
+        <especialidad>Figma</especialidad>
+        <especialidad>Adobe XD</especialidad>
+        <especialidad>Prototyping</especialidad>
+        <especialidad>User Research</especialidad>
+      </especialidades>
+      <notas>Contacto principal para diseño de interfaces</notas>
+      <alternativas>
+        <contactoRef>cont-007</contactoRef>
+        <contactoRef>cont-008</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <contacto id="cont-005" categoria="Desarrollo">
+      <nombre>Luis Hernández Gómez</nombre>
+      <puesto>Arquitecto de Software</puesto>
+      <empresa>TechCorp Solutions</empresa>
+      <telefono>+34 656 789 012</telefono>
+      <email>luis.hernandez@techcorp.com</email>
+      <disponibilidad>Lunes a Viernes 9:00-18:00</disponibilidad>
+      <especialidades>
+        <especialidad>Arquitectura</especialidad>
+        <especialidad>Microservicios</especialidad>
+        <especialidad>AWS</especialidad>
+        <especialidad>Kubernetes</especialidad>
+      </especialidades>
+      <notas>Consultar para decisiones de arquitectura</notas>
+      <alternativas>
+        <contactoRef>cont-003</contactoRef>
+        <contactoRef>cont-006</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <contacto id="cont-006" categoria="Desarrollo">
+      <nombre>Roberto Díaz Castro</nombre>
+      <puesto>DevOps Engineer</puesto>
+      <empresa>TechCorp Solutions</empresa>
+      <telefono>+34 667 890 123</telefono>
+      <email>roberto.diaz@techcorp.com</email>
+      <disponibilidad>24/7 (guardias rotativas)</disponibilidad>
+      <especialidades>
+        <especialidad>Linux</especialidad>
+        <especialidad>Docker</especialidad>
+        <especialidad>Jenkins</especialidad>
+        <especialidad>Terraform</especialidad>
+      </especialidades>
+      <notas>Contactar para temas de infraestructura y despliegues</notas>
+      <alternativas>
+        <contactoRef>cont-005</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <contacto id="cont-007" categoria="Diseño">
+      <nombre>Elena Vega Morales</nombre>
+      <puesto>Diseñadora Gráfica</puesto>
+      <empresa>CreativeHub</empresa>
+      <telefono>+34 678 901 234</telefono>
+      <email>elena.vega@creativehub.com</email>
+      <disponibilidad>Lunes a Viernes 10:00-19:00</disponibilidad>
+      <especialidades>
+        <especialidad>Illustrator</especialidad>
+        <especialidad>Photoshop</especialidad>
+        <especialidad>Branding</especialidad>
+        <especialidad>Marketing Visual</especialidad>
+      </especialidades>
+      <notas>Especialista en identidad visual y branding</notas>
+      <alternativas>
+        <contactoRef>cont-004</contactoRef>
+        <contactoRef>cont-008</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <contacto id="cont-008" categoria="Diseño">
+      <nombre>Patricia Romero Blanco</nombre>
+      <puesto>Product Designer</puesto>
+      <empresa>CreativeHub</empresa>
+      <telefono>+34 689 012 345</telefono>
+      <email>patricia.romero@creativehub.com</email>
+      <disponibilidad>Martes a Sábado 9:00-18:00</disponibilidad>
+      <especialidades>
+        <especialidad>Product Design</especialidad>
+        <especialidad>Design Systems</especialidad>
+        <especialidad>Sketch</especialidad>
+        <especialidad>InVision</especialidad>
+      </especialidades>
+      <notas>Experta en sistemas de diseño</notas>
+      <alternativas>
+        <contactoRef>cont-004</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <!-- Equipo de Gestión -->
+    <contacto id="cont-009" categoria="Gestión">
+      <nombre>Jorge Navarro Pérez</nombre>
+      <puesto>Project Manager</puesto>
+      <empresa>TechCorp Solutions</empresa>
+      <telefono>+34 690 123 456</telefono>
+      <email>jorge.navarro@techcorp.com</email>
+      <disponibilidad>Lunes a Viernes 8:30-18:30</disponibilidad>
+      <especialidades>
+        <especialidad>Scrum</especialidad>
+        <especialidad>Agile</especialidad>
+        <especialidad>Jira</especialidad>
+        <especialidad>Gestión de equipos</especialidad>
+      </especialidades>
+      <notas>Contacto principal para seguimiento de proyectos</notas>
+      <alternativas>
+        <contactoRef>cont-010</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <contacto id="cont-010" categoria="Gestión">
+      <nombre>Sandra Gil Moreno</nombre>
+      <puesto>Scrum Master</puesto>
+      <empresa>TechCorp Solutions</empresa>
+      <telefono>+34 601 234 567</telefono>
+      <email>sandra.gil@techcorp.com</email>
+      <disponibilidad>Lunes a Viernes 9:00-18:00</disponibilidad>
+      <especialidades>
+        <especialidad>Scrum</especialidad>
+        <especialidad>Kanban</especialidad>
+        <especialidad>Facilitación</especialidad>
+        <especialidad>Coaching</especialidad>
+      </especialidades>
+      <notas>Facilita ceremonias ágiles y resuelve impedimentos</notas>
+      <alternativas>
+        <contactoRef>cont-009</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <!-- Equipo de QA -->
+    <contacto id="cont-011" categoria="QA">
+      <nombre>Miguel Ángel Serrano</nombre>
+      <puesto>QA Lead</puesto>
+      <empresa>TechCorp Solutions</empresa>
+      <telefono>+34 612 345 987</telefono>
+      <email>miguel.serrano@techcorp.com</email>
+      <disponibilidad>Lunes a Viernes 9:00-18:00</disponibilidad>
+      <especialidades>
+        <especialidad>Testing Automation</especialidad>
+        <especialidad>Selenium</especialidad>
+        <especialidad>Cypress</especialidad>
+        <especialidad>Performance Testing</especialidad>
+      </especialidades>
+      <notas>Responsable de calidad y testing</notas>
+      <alternativas>
+        <contactoRef>cont-012</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <contacto id="cont-012" categoria="QA">
+      <nombre>Laura Jiménez Ortiz</nombre>
+      <puesto>QA Automation Engineer</puesto>
+      <empresa>TechCorp Solutions</empresa>
+      <telefono>+34 623 456 098</telefono>
+      <email>laura.jimenez@techcorp.com</email>
+      <disponibilidad>Lunes a Viernes 10:00-19:00</disponibilidad>
+      <especialidades>
+        <especialidad>Automation</especialidad>
+        <especialidad>Python</especialidad>
+        <especialidad>Robot Framework</especialidad>
+        <especialidad>API Testing</especialidad>
+      </especialidades>
+      <notas>Experta en automatización de pruebas</notas>
+      <alternativas>
+        <contactoRef>cont-011</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <!-- Equipo de Soporte -->
+    <contacto id="cont-013" categoria="Soporte">
+      <nombre>David Torres Ramos</nombre>
+      <puesto>Technical Support Manager</puesto>
+      <empresa>TechCorp Solutions</empresa>
+      <telefono>+34 634 567 321</telefono>
+      <email>david.torres@techcorp.com</email>
+      <disponibilidad>Lunes a Viernes 8:00-20:00</disponibilidad>
+      <especialidades>
+        <especialidad>Atención al cliente</especialidad>
+        <especialidad>Troubleshooting</especialidad>
+        <especialidad>Documentación técnica</especialidad>
+      </especialidades>
+      <notas>Contacto para incidencias y soporte técnico</notas>
+      <alternativas>
+        <contactoRef>cont-014</contactoRef>
+        <contactoRef>cont-015</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <contacto id="cont-014" categoria="Soporte">
+      <nombre>Carmen Flores Navarro</nombre>
+      <puesto>Support Engineer</puesto>
+      <empresa>TechCorp Solutions</empresa>
+      <telefono>+34 645 678 432</telefono>
+      <email>carmen.flores@techcorp.com</email>
+      <disponibilidad>Lunes a Viernes 9:00-18:00</disponibilidad>
+      <especialidades>
+        <especialidad>Technical Support</especialidad>
+        <especialidad>SQL</especialidad>
+        <especialidad>Debugging</especialidad>
+      </especialidades>
+      <notas>Soporte técnico nivel 2</notas>
+      <alternativas>
+        <contactoRef>cont-013</contactoRef>
+        <contactoRef>cont-015</contactoRef>
+      </alternativas>
+    </contacto>
+
+    <contacto id="cont-015" categoria="Soporte">
+      <nombre>Francisco Morales Cruz</nombre>
+      <puesto>Junior Support Specialist</puesto>
+      <empresa>TechCorp Solutions</empresa>
+      <telefono>+34 656 789 543</telefono>
+      <email>francisco.morales@techcorp.com</email>
+      <disponibilidad>Lunes a Viernes 10:00-19:00</disponibilidad>
+      <especialidades>
+        <especialidad>Help Desk</especialidad>
+        <especialidad>Ticketing Systems</especialidad>
+        <especialidad>Basic Troubleshooting</especialidad>
+      </especialidades>
+      <notas>Soporte técnico nivel 1</notas>
+      <alternativas>
+        <contactoRef>cont-014</contactoRef>
+      </alternativas>
+    </contacto>
+  </contactos>
+
+  <categorias>
+    <categoria id="Desarrollo" color="#4CAF50">
+      <descripcion>Equipo de desarrollo de software</descripcion>
+    </categoria>
+    <categoria id="Diseño" color="#2196F3">
+      <descripcion>Equipo de diseño y experiencia de usuario</descripcion>
+    </categoria>
+    <categoria id="Gestión" color="#FF9800">
+      <descripcion>Gestión de proyectos y equipos</descripcion>
+    </categoria>
+    <categoria id="QA" color="#9C27B0">
+      <descripcion>Control de calidad y testing</descripcion>
+    </categoria>
+    <categoria id="Soporte" color="#F44336">
+      <descripcion>Soporte técnico y atención al cliente</descripcion>
+    </categoria>
+  </categorias>
+
+  <estadisticas>
+    <totalContactos>15</totalContactos>
+    <totalCategorias>5</totalCategorias>
+    <contactosConAlternativas>15</contactosConAlternativas>
+    <relacionesAlternativas>25</relacionesAlternativas>
+  </estadisticas>
+</agendaContactos>
+

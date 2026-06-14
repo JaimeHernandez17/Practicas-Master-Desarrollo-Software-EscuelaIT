@@ -1,0 +1,429 @@
+{
+  "menuChrome": {
+    "titulo": "Menú del Navegador Google Chrome",
+    "version": "122.0",
+    "descripcion": "Estructura de menús y submenús del navegador Chrome",
+    "menuPrincipal": [
+      {
+        "id": "archivo",
+        "etiqueta": "Archivo",
+        "atajo": "Alt+A",
+        "submenus": [
+          {
+            "id": "nueva-pestana",
+            "etiqueta": "Nueva pestaña",
+            "atajo": "Ctrl+T"
+          },
+          {
+            "id": "nueva-ventana",
+            "etiqueta": "Nueva ventana",
+            "atajo": "Ctrl+N"
+          },
+          {
+            "id": "nueva-ventana-incognito",
+            "etiqueta": "Nueva ventana de incógnito",
+            "atajo": "Ctrl+Shift+N"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "abrir-archivo",
+            "etiqueta": "Abrir archivo...",
+            "atajo": "Ctrl+O"
+          },
+          {
+            "id": "abrir-ubicacion",
+            "etiqueta": "Abrir ubicación",
+            "atajo": "Ctrl+L"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "cerrar-pestana",
+            "etiqueta": "Cerrar pestaña",
+            "atajo": "Ctrl+W"
+          },
+          {
+            "id": "cerrar-ventana",
+            "etiqueta": "Cerrar ventana",
+            "atajo": "Ctrl+Shift+W"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "guardar-pagina",
+            "etiqueta": "Guardar página como...",
+            "atajo": "Ctrl+S"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "imprimir",
+            "etiqueta": "Imprimir...",
+            "atajo": "Ctrl+P"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "salir",
+            "etiqueta": "Salir",
+            "atajo": "Alt+F4"
+          }
+        ]
+      },
+      {
+        "id": "editar",
+        "etiqueta": "Editar",
+        "atajo": "Alt+E",
+        "submenus": [
+          {
+            "id": "deshacer",
+            "etiqueta": "Deshacer",
+            "atajo": "Ctrl+Z"
+          },
+          {
+            "id": "rehacer",
+            "etiqueta": "Rehacer",
+            "atajo": "Ctrl+Y"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "cortar",
+            "etiqueta": "Cortar",
+            "atajo": "Ctrl+X"
+          },
+          {
+            "id": "copiar",
+            "etiqueta": "Copiar",
+            "atajo": "Ctrl+C"
+          },
+          {
+            "id": "pegar",
+            "etiqueta": "Pegar",
+            "atajo": "Ctrl+V"
+          },
+          {
+            "id": "pegar-sin-formato",
+            "etiqueta": "Pegar sin formato",
+            "atajo": "Ctrl+Shift+V"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "seleccionar-todo",
+            "etiqueta": "Seleccionar todo",
+            "atajo": "Ctrl+A"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "buscar",
+            "etiqueta": "Buscar...",
+            "atajo": "Ctrl+F"
+          }
+        ]
+      },
+      {
+        "id": "ver",
+        "etiqueta": "Ver",
+        "atajo": "Alt+V",
+        "submenus": [
+          {
+            "id": "barra-favoritos",
+            "etiqueta": "Barra de favoritos",
+            "atajo": "Ctrl+Shift+B",
+            "tipo": "checkbox",
+            "marcado": true
+          },
+          {
+            "id": "barra-lateral",
+            "etiqueta": "Barra lateral",
+            "tipo": "checkbox",
+            "marcado": false
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "pantalla-completa",
+            "etiqueta": "Pantalla completa",
+            "atajo": "F11"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "zoom",
+            "etiqueta": "Zoom",
+            "submenus": [
+              {
+                "id": "zoom-ampliar",
+                "etiqueta": "Ampliar",
+                "atajo": "Ctrl++"
+              },
+              {
+                "id": "zoom-reducir",
+                "etiqueta": "Reducir",
+                "atajo": "Ctrl+-"
+              },
+              {
+                "id": "zoom-restablecer",
+                "etiqueta": "Restablecer zoom",
+                "atajo": "Ctrl+0"
+              }
+            ]
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "herramientas-desarrollador",
+            "etiqueta": "Herramientas para desarrolladores",
+            "atajo": "F12"
+          },
+          {
+            "id": "codigo-fuente",
+            "etiqueta": "Código fuente de la página",
+            "atajo": "Ctrl+U"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "recargar",
+            "etiqueta": "Recargar esta página",
+            "atajo": "Ctrl+R"
+          },
+          {
+            "id": "recargar-forzar",
+            "etiqueta": "Recargar sin caché",
+            "atajo": "Ctrl+Shift+R"
+          }
+        ]
+      },
+      {
+        "id": "historial",
+        "etiqueta": "Historial",
+        "atajo": "Alt+H",
+        "submenus": [
+          {
+            "id": "pestanas-recientes",
+            "etiqueta": "Pestañas cerradas recientemente",
+            "atajo": "Ctrl+Shift+T",
+            "submenus": [
+              {
+                "id": "reciente-1",
+                "etiqueta": "GitHub - Repositorio"
+              },
+              {
+                "id": "reciente-2",
+                "etiqueta": "Stack Overflow - Python"
+              },
+              {
+                "id": "reciente-3",
+                "etiqueta": "MDN Web Docs"
+              }
+            ]
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "mostrar-historial",
+            "etiqueta": "Mostrar historial completo",
+            "atajo": "Ctrl+H"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "borrar-datos",
+            "etiqueta": "Borrar datos de navegación...",
+            "atajo": "Ctrl+Shift+Del"
+          }
+        ]
+      },
+      {
+        "id": "marcadores",
+        "etiqueta": "Marcadores",
+        "atajo": "Alt+M",
+        "submenus": [
+          {
+            "id": "anadir-marcador",
+            "etiqueta": "Añadir esta página a marcadores",
+            "atajo": "Ctrl+D"
+          },
+          {
+            "id": "anadir-todas",
+            "etiqueta": "Añadir todas las pestañas a marcadores",
+            "atajo": "Ctrl+Shift+D"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "administrador-marcadores",
+            "etiqueta": "Administrador de marcadores",
+            "atajo": "Ctrl+Shift+O"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "importar-exportar",
+            "etiqueta": "Importar marcadores y configuración..."
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "carpetas-marcadores",
+            "etiqueta": "Carpetas de marcadores",
+            "submenus": [
+              {
+                "id": "carpeta-trabajo",
+                "etiqueta": "Trabajo"
+              },
+              {
+                "id": "carpeta-desarrollo",
+                "etiqueta": "Desarrollo Web"
+              },
+              {
+                "id": "carpeta-recursos",
+                "etiqueta": "Recursos"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "herramientas",
+        "etiqueta": "Herramientas",
+        "atajo": "Alt+T",
+        "submenus": [
+          {
+            "id": "descargas",
+            "etiqueta": "Descargas",
+            "atajo": "Ctrl+J"
+          },
+          {
+            "id": "extensiones",
+            "etiqueta": "Extensiones"
+          },
+          {
+            "id": "administrador-tareas",
+            "etiqueta": "Administrador de tareas",
+            "atajo": "Shift+Esc"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "borrar-cache",
+            "etiqueta": "Borrar caché e historial",
+            "atajo": "Ctrl+Shift+Delete"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "configuracion",
+            "etiqueta": "Configuración",
+            "submenus": [
+              {
+                "id": "config-apariencia",
+                "etiqueta": "Apariencia"
+              },
+              {
+                "id": "config-privacidad",
+                "etiqueta": "Privacidad y seguridad"
+              },
+              {
+                "id": "config-busqueda",
+                "etiqueta": "Motor de búsqueda"
+              },
+              {
+                "id": "config-avanzada",
+                "etiqueta": "Configuración avanzada"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ayuda",
+        "etiqueta": "Ayuda",
+        "atajo": "Alt+Y",
+        "submenus": [
+          {
+            "id": "ayuda-chrome",
+            "etiqueta": "Ayuda de Google Chrome",
+            "atajo": "F1"
+          },
+          {
+            "id": "novedades",
+            "etiqueta": "Novedades de Chrome"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "informe-problema",
+            "etiqueta": "Informar de un problema"
+          },
+          {
+            "tipo": "separador"
+          },
+          {
+            "id": "acerca-de",
+            "etiqueta": "Acerca de Google Chrome"
+          }
+        ]
+      }
+    ],
+    "menuContextual": {
+      "descripcion": "Menú que aparece al hacer clic derecho",
+      "opciones": [
+        {
+          "id": "atras",
+          "etiqueta": "Atrás"
+        },
+        {
+          "id": "adelante",
+          "etiqueta": "Adelante"
+        },
+        {
+          "id": "recargar",
+          "etiqueta": "Recargar"
+        },
+        {
+          "tipo": "separador"
+        },
+        {
+          "id": "guardar-como",
+          "etiqueta": "Guardar como..."
+        },
+        {
+          "id": "imprimir",
+          "etiqueta": "Imprimir..."
+        },
+        {
+          "tipo": "separador"
+        },
+        {
+          "id": "inspeccionar",
+          "etiqueta": "Inspeccionar"
+        }
+      ]
+    }
+  }
+}

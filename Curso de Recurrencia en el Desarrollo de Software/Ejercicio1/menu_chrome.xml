@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menuChrome>
+  <titulo>Menú del Navegador Google Chrome</titulo>
+  <version>122.0</version>
+  <descripcion>Estructura de menús y submenús del navegador Chrome</descripcion>
+
+  <menuPrincipal>
+    <!-- Menú Archivo -->
+    <menu id="archivo" atajo="Alt+A">
+      <etiqueta>Archivo</etiqueta>
+      <submenus>
+        <item id="nueva-pestana" atajo="Ctrl+T">
+          <etiqueta>Nueva pestaña</etiqueta>
+        </item>
+        <item id="nueva-ventana" atajo="Ctrl+N">
+          <etiqueta>Nueva ventana</etiqueta>
+        </item>
+        <item id="nueva-ventana-incognito" atajo="Ctrl+Shift+N">
+          <etiqueta>Nueva ventana de incógnito</etiqueta>
+        </item>
+        <separador/>
+        <item id="abrir-archivo" atajo="Ctrl+O">
+          <etiqueta>Abrir archivo...</etiqueta>
+        </item>
+        <item id="abrir-ubicacion" atajo="Ctrl+L">
+          <etiqueta>Abrir ubicación</etiqueta>
+        </item>
+        <separador/>
+        <item id="cerrar-pestana" atajo="Ctrl+W">
+          <etiqueta>Cerrar pestaña</etiqueta>
+        </item>
+        <item id="cerrar-ventana" atajo="Ctrl+Shift+W">
+          <etiqueta>Cerrar ventana</etiqueta>
+        </item>
+        <separador/>
+        <item id="guardar-pagina" atajo="Ctrl+S">
+          <etiqueta>Guardar página como...</etiqueta>
+        </item>
+        <separador/>
+        <item id="imprimir" atajo="Ctrl+P">
+          <etiqueta>Imprimir...</etiqueta>
+        </item>
+        <separador/>
+        <item id="salir" atajo="Alt+F4">
+          <etiqueta>Salir</etiqueta>
+        </item>
+      </submenus>
+    </menu>
+
+    <!-- Menú Editar -->
+    <menu id="editar" atajo="Alt+E">
+      <etiqueta>Editar</etiqueta>
+      <submenus>
+        <item id="deshacer" atajo="Ctrl+Z">
+          <etiqueta>Deshacer</etiqueta>
+        </item>
+        <item id="rehacer" atajo="Ctrl+Y">
+          <etiqueta>Rehacer</etiqueta>
+        </item>
+        <separador/>
+        <item id="cortar" atajo="Ctrl+X">
+          <etiqueta>Cortar</etiqueta>
+        </item>
+        <item id="copiar" atajo="Ctrl+C">
+          <etiqueta>Copiar</etiqueta>
+        </item>
+        <item id="pegar" atajo="Ctrl+V">
+          <etiqueta>Pegar</etiqueta>
+        </item>
+        <item id="pegar-sin-formato" atajo="Ctrl+Shift+V">
+          <etiqueta>Pegar sin formato</etiqueta>
+        </item>
+        <separador/>
+        <item id="seleccionar-todo" atajo="Ctrl+A">
+          <etiqueta>Seleccionar todo</etiqueta>
+        </item>
+        <separador/>
+        <item id="buscar" atajo="Ctrl+F">
+          <etiqueta>Buscar...</etiqueta>
+        </item>
+      </submenus>
+    </menu>
+
+    <!-- Menú Ver -->
+    <menu id="ver" atajo="Alt+V">
+      <etiqueta>Ver</etiqueta>
+      <submenus>
+        <item id="barra-favoritos" atajo="Ctrl+Shift+B" tipo="checkbox" marcado="true">
+          <etiqueta>Barra de favoritos</etiqueta>
+        </item>
+        <item id="barra-lateral" tipo="checkbox" marcado="false">
+          <etiqueta>Barra lateral</etiqueta>
+        </item>
+        <separador/>
+        <item id="pantalla-completa" atajo="F11">
+          <etiqueta>Pantalla completa</etiqueta>
+        </item>
+        <separador/>
+        <submenu id="zoom">
+          <etiqueta>Zoom</etiqueta>
+          <items>
+            <item id="zoom-ampliar" atajo="Ctrl++">
+              <etiqueta>Ampliar</etiqueta>
+            </item>
+            <item id="zoom-reducir" atajo="Ctrl+-">
+              <etiqueta>Reducir</etiqueta>
+            </item>
+            <item id="zoom-restablecer" atajo="Ctrl+0">
+              <etiqueta>Restablecer zoom</etiqueta>
+            </item>
+          </items>
+        </submenu>
+        <separador/>
+        <item id="herramientas-desarrollador" atajo="F12">
+          <etiqueta>Herramientas para desarrolladores</etiqueta>
+        </item>
+        <item id="codigo-fuente" atajo="Ctrl+U">
+          <etiqueta>Código fuente de la página</etiqueta>
+        </item>
+        <separador/>
+        <item id="recargar" atajo="Ctrl+R">
+          <etiqueta>Recargar esta página</etiqueta>
+        </item>
+        <item id="recargar-forzar" atajo="Ctrl+Shift+R">
+          <etiqueta>Recargar sin caché</etiqueta>
+        </item>
+      </submenus>
+    </menu>
+
+    <!-- Menú Historial -->
+    <menu id="historial" atajo="Alt+H">
+      <etiqueta>Historial</etiqueta>
+      <submenus>
+        <submenu id="pestanas-recientes" atajo="Ctrl+Shift+T">
+          <etiqueta>Pestañas cerradas recientemente</etiqueta>
+          <items>
+            <item id="reciente-1">
+              <etiqueta>GitHub - Repositorio</etiqueta>
+            </item>
+            <item id="reciente-2">
+              <etiqueta>Stack Overflow - Python</etiqueta>
+            </item>
+            <item id="reciente-3">
+              <etiqueta>MDN Web Docs</etiqueta>
+            </item>
+          </items>
+        </submenu>
+        <separador/>
+        <item id="mostrar-historial" atajo="Ctrl+H">
+          <etiqueta>Mostrar historial completo</etiqueta>
+        </item>
+        <separador/>
+        <item id="borrar-datos" atajo="Ctrl+Shift+Del">
+          <etiqueta>Borrar datos de navegación...</etiqueta>
+        </item>
+      </submenus>
+    </menu>
+
+    <!-- Menú Marcadores -->
+    <menu id="marcadores" atajo="Alt+M">
+      <etiqueta>Marcadores</etiqueta>
+      <submenus>
+        <item id="anadir-marcador" atajo="Ctrl+D">
+          <etiqueta>Añadir esta página a marcadores</etiqueta>
+        </item>
+        <item id="anadir-todas" atajo="Ctrl+Shift+D">
+          <etiqueta>Añadir todas las pestañas a marcadores</etiqueta>
+        </item>
+        <separador/>
+        <item id="administrador-marcadores" atajo="Ctrl+Shift+O">
+          <etiqueta>Administrador de marcadores</etiqueta>
+        </item>
+        <separador/>
+        <item id="importar-exportar">
+          <etiqueta>Importar marcadores y configuración...</etiqueta>
+        </item>
+        <separador/>
+        <submenu id="carpetas-marcadores">
+          <etiqueta>Carpetas de marcadores</etiqueta>
+          <items>
+            <item id="carpeta-trabajo">
+              <etiqueta>Trabajo</etiqueta>
+            </item>
+            <item id="carpeta-desarrollo">
+              <etiqueta>Desarrollo Web</etiqueta>
+            </item>
+            <item id="carpeta-recursos">
+              <etiqueta>Recursos</etiqueta>
+            </item>
+          </items>
+        </submenu>
+      </submenus>
+    </menu>
+
+    <!-- Menú Herramientas -->
+    <menu id="herramientas" atajo="Alt+T">
+      <etiqueta>Herramientas</etiqueta>
+      <submenus>
+        <item id="descargas" atajo="Ctrl+J">
+          <etiqueta>Descargas</etiqueta>
+        </item>
+        <item id="extensiones">
+          <etiqueta>Extensiones</etiqueta>
+        </item>
+        <item id="administrador-tareas" atajo="Shift+Esc">
+          <etiqueta>Administrador de tareas</etiqueta>
+        </item>
+        <separador/>
+        <item id="borrar-cache" atajo="Ctrl+Shift+Delete">
+          <etiqueta>Borrar caché e historial</etiqueta>
+        </item>
+        <separador/>
+        <submenu id="configuracion">
+          <etiqueta>Configuración</etiqueta>
+          <items>
+            <item id="config-apariencia">
+              <etiqueta>Apariencia</etiqueta>
+            </item>
+            <item id="config-privacidad">
+              <etiqueta>Privacidad y seguridad</etiqueta>
+            </item>
+            <item id="config-busqueda">
+              <etiqueta>Motor de búsqueda</etiqueta>
+            </item>
+            <item id="config-avanzada">
+              <etiqueta>Configuración avanzada</etiqueta>
+            </item>
+          </items>
+        </submenu>
+      </submenus>
+    </menu>
+
+    <!-- Menú Ayuda -->
+    <menu id="ayuda" atajo="Alt+Y">
+      <etiqueta>Ayuda</etiqueta>
+      <submenus>
+        <item id="ayuda-chrome" atajo="F1">
+          <etiqueta>Ayuda de Google Chrome</etiqueta>
+        </item>
+        <item id="novedades">
+          <etiqueta>Novedades de Chrome</etiqueta>
+        </item>
+        <separador/>
+        <item id="informe-problema">
+          <etiqueta>Informar de un problema</etiqueta>
+        </item>
+        <separador/>
+        <item id="acerca-de">
+          <etiqueta>Acerca de Google Chrome</etiqueta>
+        </item>
+      </submenus>
+    </menu>
+  </menuPrincipal>
+
+  <menuContextual>
+    <descripcion>Menú que aparece al hacer clic derecho</descripcion>
+    <opciones>
+      <item id="atras">
+        <etiqueta>Atrás</etiqueta>
+      </item>
+      <item id="adelante">
+        <etiqueta>Adelante</etiqueta>
+      </item>
+      <item id="recargar">
+        <etiqueta>Recargar</etiqueta>
+      </item>
+      <separador/>
+      <item id="guardar-como">
+        <etiqueta>Guardar como...</etiqueta>
+      </item>
+      <item id="imprimir">
+        <etiqueta>Imprimir...</etiqueta>
+      </item>
+      <separador/>
+      <item id="inspeccionar">
+        <etiqueta>Inspeccionar</etiqueta>
+      </item>
+    </opciones>
+  </menuContextual>
+</menuChrome>
+

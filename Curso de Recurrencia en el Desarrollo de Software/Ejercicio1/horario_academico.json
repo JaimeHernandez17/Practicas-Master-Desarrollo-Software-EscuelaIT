@@ -1,0 +1,206 @@
+{
+  "horarioAcademico": {
+    "titulo": "Horario de Artes Escénicas",
+    "jornadaDiaria": {
+      "horaInicio": "08:00",
+      "horaFin": "16:30",
+      "descripcion": "Jornada académica diaria con descanso y almuerzo incluidos"
+    },
+    "diasSemana": [
+      {
+        "dia": "Lunes",
+        "actividades": [
+          {
+            "horaInicio": "08:00",
+            "horaFin": "10:00",
+            "asignatura": "Acondicionamiento Físico",
+            "duracionMinutos": 120
+          },
+          {
+            "horaInicio": "10:00",
+            "horaFin": "10:30",
+            "asignatura": "Descanso",
+            "duracionMinutos": 30,
+            "tipo": "descanso"
+          },
+          {
+            "horaInicio": "10:30",
+            "horaFin": "13:00",
+            "asignatura": "Interpretación Teatral",
+            "duracionMinutos": 150
+          },
+          {
+            "horaInicio": "13:00",
+            "horaFin": "14:30",
+            "asignatura": "Almuerzo",
+            "duracionMinutos": 90,
+            "tipo": "almuerzo"
+          },
+          {
+            "horaInicio": "14:30",
+            "horaFin": "16:30",
+            "asignatura": "Historia de las Artes",
+            "duracionMinutos": 120
+          }
+        ]
+      },
+      {
+        "dia": "Martes",
+        "actividades": [
+          {
+            "horaInicio": "08:00",
+            "horaFin": "10:00",
+            "asignatura": "Análisis de Textos",
+            "duracionMinutos": 120
+          },
+          {
+            "horaInicio": "10:00",
+            "horaFin": "10:30",
+            "asignatura": "Descanso",
+            "duracionMinutos": 30,
+            "tipo": "descanso"
+          },
+          {
+            "horaInicio": "10:30",
+            "horaFin": "13:00",
+            "asignatura": "Taller de Creación",
+            "duracionMinutos": 150
+          },
+          {
+            "horaInicio": "13:00",
+            "horaFin": "14:30",
+            "asignatura": "Almuerzo",
+            "duracionMinutos": 90,
+            "tipo": "almuerzo"
+          },
+          {
+            "horaInicio": "14:30",
+            "horaFin": "16:30",
+            "asignatura": "Producción Escénica",
+            "duracionMinutos": 120
+          }
+        ]
+      },
+      {
+        "dia": "Miércoles",
+        "actividades": [
+          {
+            "horaInicio": "08:00",
+            "horaFin": "10:00",
+            "asignatura": "Danza y Movimiento",
+            "duracionMinutos": 120
+          },
+          {
+            "horaInicio": "10:00",
+            "horaFin": "10:30",
+            "asignatura": "Descanso",
+            "duracionMinutos": 30,
+            "tipo": "descanso"
+          },
+          {
+            "horaInicio": "10:30",
+            "horaFin": "13:00",
+            "asignatura": "Interpretación Frente a Cámara",
+            "duracionMinutos": 150
+          },
+          {
+            "horaInicio": "13:00",
+            "horaFin": "14:30",
+            "asignatura": "Almuerzo",
+            "duracionMinutos": 90,
+            "tipo": "almuerzo"
+          },
+          {
+            "horaInicio": "14:30",
+            "horaFin": "16:30",
+            "asignatura": "Expresión Corporal",
+            "duracionMinutos": 120
+          }
+        ]
+      },
+      {
+        "dia": "Jueves",
+        "actividades": [
+          {
+            "horaInicio": "08:00",
+            "horaFin": "10:00",
+            "asignatura": "Técnica Vocal",
+            "duracionMinutos": 120
+          },
+          {
+            "horaInicio": "10:00",
+            "horaFin": "10:30",
+            "asignatura": "Descanso",
+            "duracionMinutos": 30,
+            "tipo": "descanso"
+          },
+          {
+            "horaInicio": "10:30",
+            "horaFin": "13:00",
+            "asignatura": "Dramaturgia",
+            "duracionMinutos": 150
+          },
+          {
+            "horaInicio": "13:00",
+            "horaFin": "14:30",
+            "asignatura": "Almuerzo",
+            "duracionMinutos": 90,
+            "tipo": "almuerzo"
+          },
+          {
+            "horaInicio": "14:30",
+            "horaFin": "16:30",
+            "asignatura": "Acrobacia / Esgrima",
+            "duracionMinutos": 120
+          }
+        ]
+      },
+      {
+        "dia": "Viernes",
+        "actividades": [
+          {
+            "horaInicio": "08:00",
+            "horaFin": "10:00",
+            "asignatura": "Entrenamiento Actoral",
+            "duracionMinutos": 120
+          },
+          {
+            "horaInicio": "10:00",
+            "horaFin": "10:30",
+            "asignatura": "Descanso",
+            "duracionMinutos": 30,
+            "tipo": "descanso"
+          },
+          {
+            "horaInicio": "10:30",
+            "horaFin": "13:00",
+            "asignatura": "Ensayos de Montaje",
+            "duracionMinutos": 150
+          },
+          {
+            "horaInicio": "13:00",
+            "horaFin": "14:30",
+            "asignatura": "Almuerzo",
+            "duracionMinutos": 90,
+            "tipo": "almuerzo"
+          },
+          {
+            "horaInicio": "14:30",
+            "horaFin": "16:30",
+            "asignatura": "Proyecto de Grado",
+            "duracionMinutos": 120
+          }
+        ]
+      }
+    ],
+    "resumen": {
+      "totalDiasSemana": 5,
+      "totalActividadesPorDia": 5,
+      "horasAcademicasDiarias": 8.5,
+      "horasAcademicasSemanales": 42.5,
+      "horasClaseDiarias": 6.5,
+      "horasClaseSemanales": 32.5
+    }
+  }
+}
+

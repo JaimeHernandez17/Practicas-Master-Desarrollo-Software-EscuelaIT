@@ -1,0 +1,111 @@
+{
+  "curriculumVitae": {
+    "datosPersonales": {
+      "nombre": "Michelle Torres Quiroz",
+      "edad": 25,
+      "domicilio": {
+        "calle": "Av. Siempreviva",
+        "numero": "17",
+        "colonia": "Anzures",
+        "ciudad": "México D.F.",
+        "codigoPostal": "04565"
+      },
+      "telefono": "55-34-45-95",
+      "email": "curriculum@gmail.com"
+    },
+    "perfil": "Tengo un carácter de mujer emprendedora, porque en los negocios o actividades laborales, suelo ser muy dinámica, responsable, puntual, puedo llevar la responsabilidad de un equipo de personas, visionaria y, sobre todo, motivadora, etc.",
+    "estudiosAcademicos": [
+      {
+        "institucion": "Universidad Autónoma de México",
+        "facultad": "Facultad de Ciencias de la Comunicación",
+        "titulo": "Licenciatura en Ciencias de la Comunicación",
+        "generacion": {
+          "inicio": 2001,
+          "fin": 2005
+        },
+        "tituloObtenido": false
+      },
+      {
+        "institucion": "Universidad Autónoma de México",
+        "facultad": "Facultad de Derecho",
+        "titulo": "Licenciatura en Derecho",
+        "generacion": {
+          "inicio": 1996,
+          "fin": 2000
+        },
+        "tituloObtenido": true
+      }
+    ],
+    "actividadesLaborales": [
+      {
+        "puesto": "Asesor Jurídico para Revista México",
+        "periodo": {
+          "inicio": 2000,
+          "fin": 2011
+        }
+      },
+      {
+        "puesto": "Creadora publicitaria y editora de revista y periódico",
+        "periodo": {
+          "inicio": 2000,
+          "fin": 2011
+        }
+      },
+      {
+        "puesto": "Escritora de libros",
+        "periodo": {
+          "inicio": 2008,
+          "fin": 2011
+        }
+      },
+      {
+        "puesto": "Redactora de artículos para website",
+        "periodo": {
+          "inicio": 2005,
+          "fin": 2011
+        },
+        "localizacion": ["España", "Estados Unidos", "México"]
+      }
+    ],
+    "habilidadesYConocimientos": {
+      "habilidades": [
+        {
+          "nombre": "Administrativas",
+          "modalidad": "online",
+          "constancia": "SEC",
+          "año": 2008
+        }
+      ],
+      "conocimientos": [
+        {
+          "nombre": "contable",
+          "modalidad": "online",
+          "constancia": "SEC",
+          "año": 2008
+        }
+      ],
+      "software": [
+        {
+          "categoria": "Windows Office 2007",
+          "herramientas": ["Excel", "Word", "Publisher"]
+        },
+        {
+          "categoria": "Adobe",
+          "herramientas": ["Corel Draw", "Photodeluxe"]
+        }
+      ],
+      "equipamiento": [
+        "Manejo de equipo de cómputo",
+        "Impresoras",
+        "Copiadoras"
+      ],
+      "idiomas": [
+        {
+          "idioma": "Inglés",
+          "dominio": "90%"
+        }
+      ]
+    }
+  }
+}
+

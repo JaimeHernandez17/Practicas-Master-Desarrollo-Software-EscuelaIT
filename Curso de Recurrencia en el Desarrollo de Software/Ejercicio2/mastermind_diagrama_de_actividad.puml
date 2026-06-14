@@ -1,0 +1,124 @@
+@startuml Mastermind Activity Diagram
+
+title Diagrama de Actividad - Flujo del Juego Mastermind
+
+|Jugador 1|
+start
+:Iniciar Partida;
+note right
+  Definir número de juegos
+  Asignar colores de tanteo
+end note
+
+repeat
+  :Crear Código Secreto;
+  note right
+    Seleccionar 5 clavijas
+    de 8 colores disponibles
+    Pueden repetirse colores
+  end note
+
+  :Ocultar Código con Escudo;
+
+  |Jugador 2|
+
+  repeat
+    :Proponer Combinación;
+    note left
+      Seleccionar 5 clavijas
+      de colores para el intento
+    end note
+
+    :Colocar Intento en Tablero;
+
+    |Jugador 1|
+
+    :Comparar con Código Secreto;
+
+    :Calcular Espigas;
+    note right
+      Por cada clavija:
+      - Color y posición correctos → espiga negra
+      - Color correcto, posición incorrecta → espiga blanca
+      - Color incorrecto → sin espiga
+    end note
+
+    if (¿Pistas correctas?) then (sí)
+      :Colocar Espigas en Tablero;
+
+      |Jugador 2|
+
+      if (¿Todas las posiciones correctas?) then (sí)
+        :Código Acertado!;
+        #lightgreen:Victoria;
+
+        |Sistema|
+        :Contar Filas Usadas;
+
+        |Jugador 1|
+        :Sumar Puntos = Filas Usadas;
+
+        break
+
+      elseif (¿Tablero lleno (12 intentos)?) then (sí)
+        :Intentos Agotados;
+        #lightcoral:Código no descubierto;
+
+        |Sistema|
+        :Contar Filas Usadas = 12;
+
+        |Jugador 1|
+        :Sumar 12 Puntos;
+
+        break
+
+      else (continuar)
+        |Jugador 2|
+      endif
+
+    else (no - error)
+      |Sistema|
+      :Aplicar Penalización;
+      note left
+        Jugador 2 gana 3 puntos
+        Jugador 1 debe repetir la serie
+      end note
+
+      |Jugador 2|
+      :Sumar 3 Puntos;
+
+      |Jugador 1|
+      :Repetir Serie;
+    endif
+
+    |Jugador 2|
+
+  repeat while (¿Código acertado o tablero lleno?) is (no) not (sí)
+
+  |Sistema|
+  :Actualizar Marcadores;
+  :Mover Espigas de Tanteo;
+
+  :Cambiar Roles;
+  note right
+    Jugador 2 será el creador
+    Jugador 1 será el adivinador
+  end note
+
+  |Jugador 2|
+
+repeat while (¿Más juegos pendientes?) is (sí) not (no)
+
+|Sistema|
+:Contar Puntuaciones Finales;
+
+if (¿Quién tiene más puntos?) then (Jugador 1)
+  #lightgreen:¡Jugador 1 Gana la Partida!;
+else (Jugador 2)
+  #lightgreen:¡Jugador 2 Gana la Partida!;
+endif
+
+stop
+
+@enduml
+

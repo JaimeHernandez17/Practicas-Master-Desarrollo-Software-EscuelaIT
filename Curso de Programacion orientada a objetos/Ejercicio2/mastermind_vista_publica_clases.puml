@@ -1,0 +1,162 @@
+@startuml Mastermind Vista Publica Clases
+
+title Vista Pública de Clases - Juego Mastermind
+
+' ========== ENUMERACION COLOR ==========
+
+enum Color {
+    ROJO
+    AZUL
+    VERDE
+    AMARILLO
+    ROSA
+    BLANCO
+    NEGRO
+    MARRON
+}
+
+' ========== CLASE PRINCIPAL ==========
+
+class Mastermind {
+    + iniciarPartida(): void
+    + jugar(): void
+    + cambiarRoles(): void
+    + finalizarPartida(): void
+    + obtenerGanador(): Jugador
+    + estaFinalizada(): boolean
+}
+
+' ========== CLASES DEL JUEGO ==========
+
+class Jugador {
+    + getNombre(): String
+    + getPuntuacion(): int
+    + esCreador(): boolean
+    + crearCodigoSecreto(colores: List<Color>): void
+    + realizarIntento(colores: List<Color>): Intento
+    + evaluarIntento(intento: Intento): Resultado
+    + sumarPuntos(puntos: int): void
+    + cambiarRol(): void
+}
+
+class Tablero {
+    + colocarIntento(intento: Intento): boolean
+    + colocarResultado(resultado: Resultado): void
+    + getNumeroIntentos(): int
+    + estaLleno(): boolean
+    + limpiar(): void
+    + mostrar(): void
+}
+
+class CodigoSecreto {
+    + crear(colores: List<Color>): boolean
+    + validar(): boolean
+    + comparar(intento: Intento): Resultado
+    + ocultar(): void
+    + revelar(): void
+    + getNumeroColores(): int
+}
+
+class Intento {
+    + agregarColor(posicion: int, color: Color): void
+    + getColores(): List<Color>
+    + esCompleto(): boolean
+    + esValido(): boolean
+    + getNumeroIntento(): int
+}
+
+class Resultado {
+    + calcular(codigo: CodigoSecreto, intento: Intento): void
+    + getNegras(): int
+    + getBlancas(): int
+    + esAcierto(): boolean
+    + toString(): String
+}
+
+' ========== CLASES AUXILIARES ==========
+
+class Combinacion {
+    {static} + LONGITUD_CODIGO: int = 5
+    + setColor(posicion: int, color: Color): void
+    + getColor(posicion: int): Color
+    + getColores(): List<Color>
+    + esValida(): boolean
+}
+
+class Puntuacion {
+    + sumar(puntos: int): void
+    + restar(puntos: int): void
+    + getPuntos(): int
+    + reset(): void
+}
+
+class Validador {
+    {static} + validarCodigo(colores: List<Color>): boolean
+    {static} + validarIntento(colores: List<Color>): boolean
+    {static} + validarLongitud(colores: List<Color>): boolean
+}
+
+' ========== RELACIONES ==========
+
+Mastermind "1" o-- "2" Jugador
+Mastermind "1" *-- "1" Tablero
+Mastermind "1" -- "1" CodigoSecreto
+
+Jugador "1" *-- "1" Puntuacion
+Jugador -- CodigoSecreto
+Jugador -- Intento
+Jugador ..> Resultado
+
+Tablero "1" o-- "1..12" Intento
+Tablero "1" o-- "1..12" Resultado
+Tablero -- CodigoSecreto
+
+CodigoSecreto ..> Resultado
+Intento ..> Resultado
+Validador ..> CodigoSecreto
+Validador ..> Intento
+
+CodigoSecreto "1" *-- "5" Color
+Intento "1" *-- "5" Color
+
+CodigoSecreto --|> Combinacion
+Intento --|> Combinacion
+
+Combinacion "1" *-- "5" Color
+
+' ========== NOTAS ==========
+
+note right of Mastermind
+  Clase Principal
+  Controla el flujo del juego
+  Gestiona turnos y roles
+end note
+
+note top of CodigoSecreto
+  Codigo de 5 colores
+  Puede repetir colores
+  Se oculta durante el juego
+end note
+
+note bottom of Resultado
+  Pistas:
+  Negras = color y posicion correctos
+  Blancas = color correcto posicion incorrecta
+  Acierto = 5 negras
+end note
+
+note left of Jugador
+  Roles alternados:
+  Creador: crea codigo y evalua
+  Adivinador: realiza intentos
+  Puntuacion = intentos del oponente
+end note
+
+note bottom of Tablero
+  Capacidad: 12 intentos maximo
+  Registra intentos y resultados
+end note
+
+
+@enduml
+

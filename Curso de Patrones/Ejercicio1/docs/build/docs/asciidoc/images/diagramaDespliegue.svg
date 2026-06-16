@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="207px" preserveAspectRatio="none" style="width:203px;height:207px;" version="1.1" viewBox="0 0 203 207" width="203px" zoomAndPan="magnify"><defs><filter height="300%" id="f1i08kgm8zwtc7" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--entity node--><polygon fill="#DDDDDD" filter="url(#f1i08kgm8zwtc7)" points="6,18,16,8,181,8,181,88.8281,171,98.8281,6,98.8281,6,18" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="171" x2="180" y1="18" y2="9"/><line style="stroke: #000000; stroke-width: 1.5;" x1="6" x2="171" y1="18" y2="18"/><line style="stroke: #000000; stroke-width: 1.5;" x1="171" x2="171" y1="18" y2="98.8281"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="135" x="21" y="42.5332">Personal Computer</text><line style="stroke: #000000; stroke-width: 1.0;" x1="6" x2="171" y1="45.6094" y2="45.6094"/><line style="stroke: #000000; stroke-width: 1.0;" x1="171" x2="181" y1="45.6094" y2="35.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="103" x="27" y="64.1426">memory : xxx Mb</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="83" x="27" y="81.752">cpu : xxx GHz</text><!--entity component--><rect fill="#FEFECE" filter="url(#f1i08kgm8zwtc7)" height="37.6094" style="stroke: #A80036; stroke-width: 1.5;" width="113" x="37" y="159"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="32" y="164"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="32" y="186.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="93" x="47" y="183.5332">masterming.jar</text><!--link node to component--><path d="M93.5,112.1634 C93.5,123.6692 93.5,135.3444 93.5,145.5574 " fill="none" id="node-component" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="93.5,158.8516,97.5,149.8516,93.5,153.8516,89.5,149.8516,93.5,158.8516" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="93.5" x2="93.5001" y1="153.8516" y2="145.8515"/><polygon fill="#A80036" points="93.5,99.0718,89.5,105.0718,93.5,111.0718,97.5,105.0718,93.5,99.0718" style="stroke: #A80036; stroke-width: 1.0;"/><!--
+@startuml
+
+node node #DDDDDD [
+<b>Personal Computer</b>
+- - - -
+memory : xxx Mb
+cpu : xxx GHz
+]
+
+[ masterming.jar ] as component
+
+node *- -> component
+@enduml
+
+PlantUML version 1.2019.05(Sat Apr 20 18:45:36 CEST 2019)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_222-b10
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: windows-1252
+Language: es
+Country: ES
+--></g></svg>

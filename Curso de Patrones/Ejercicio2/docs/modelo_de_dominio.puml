@@ -1,0 +1,226 @@
+@startuml modelo_de_dominio
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+skinparam classFontSize 14
+skinparam packageFontSize 16
+
+title Modelo de Dominio - Sistema de Tickets para Cadena Internacional de Supermercados
+
+package "Dominio Principal" {
+
+    class Supermercado {
+        - nombre: String
+        - pais: Pais
+        - tiendas: List<Tienda>
+    }
+
+    class Tienda {
+        - codigo: String
+        - direccion: String
+        - telefono: String
+    }
+
+    class Pais {
+        - codigo: String
+        - nombre: String
+        - moneda: Moneda
+        - idioma: Idioma
+        - configuracionFiscal: ConfiguracionFiscal
+    }
+
+    class Moneda {
+        - codigo: String
+        - simbolo: String
+        - decimales: int
+        - formatoRedondeo: FormatoRedondeo
+    }
+
+    class Idioma {
+        - codigo: String
+        - nombre: String
+    }
+
+    class ConfiguracionFiscal {
+        - tipoImpuesto: TipoImpuesto
+        - porcentajeIVA: BigDecimal
+        - permiteDevoluciones: boolean
+        - tiposDescuento: List<TipoDescuento>
+    }
+
+    enum TipoImpuesto {
+        IVA_INCLUIDO
+        IVA_SEPARADO
+        SIN_IVA
+    }
+
+    enum TipoDescuento {
+        POR_LINEA
+        GLOBAL
+        POR_VOLUMEN
+        PROMOCIONAL
+    }
+
+    enum FormatoRedondeo {
+        TRUNCAR
+        REDONDEAR_ARRIBA
+        REDONDEAR_ABAJO
+        REDONDEAR_CERCANO
+    }
+}
+
+package "Gestión de Tickets" {
+
+    class Ticket {
+        - id: String
+        - fechaHora: LocalDateTime
+        - tienda: Tienda
+        - cajero: Cajero
+        - lineas: List<LineaTicket>
+        - total: BigDecimal
+        - estado: EstadoTicket
+    }
+
+    class Cabecera {
+        - nombreCadena: String
+        - fechaHora: LocalDateTime
+        - direccionTienda: String
+        - telefonoTienda: String
+    }
+
+    class Pie {
+        - totalSinImpuestos: BigDecimal
+        - totalImpuestos: BigDecimal
+        - totalConImpuestos: BigDecimal
+        - metodoPago: MetodoPago
+        - mensajeDespedida: String
+    }
+
+    abstract class LineaTicket {
+        - numero: int
+        - descripcion: String
+        - importe: BigDecimal
+    }
+
+    class LineaVenta {
+        - producto: Producto
+        - cantidad: int
+        - precioUnitario: BigDecimal
+    }
+
+    class LineaRepeticion {
+        - lineaOriginal: LineaTicket
+    }
+
+    class LineaAnulacion {
+        - lineaAnulada: LineaTicket
+    }
+
+    class LineaDevolucion {
+        - ticketOriginal: Ticket
+        - producto: Producto
+        - motivo: String
+    }
+
+    enum EstadoTicket {
+        EN_PROCESO
+        FINALIZADO
+        ANULADO
+    }
+}
+
+package "Productos y Pagos" {
+
+    class Producto {
+        - codigo: String
+        - descripcion: String
+        - precio: BigDecimal
+        - categoriaIVA: CategoriaIVA
+    }
+
+    class Carrito {
+        - productos: List<ItemCarrito>
+        - subtotal: BigDecimal
+    }
+
+    class ItemCarrito {
+        - producto: Producto
+        - cantidad: int
+    }
+
+    enum CategoriaIVA {
+        GENERAL
+        REDUCIDO
+        SUPERREDUCIDO
+        EXENTO
+    }
+
+    abstract class MetodoPago {
+        - nombre: String
+    }
+
+    class PagoEfectivo {
+        - importeEntregado: BigDecimal
+        - cambio: BigDecimal
+    }
+
+    class PagoTarjeta {
+        - ultimosDigitos: String
+        - tipoTarjeta: TipoTarjeta
+    }
+
+    class PagoMovil {
+        - aplicacion: String
+    }
+
+    class PagoCheque {
+        - numeroCheque: String
+        - banco: String
+    }
+
+    enum TipoTarjeta {
+        CREDITO
+        DEBITO
+    }
+
+    class Cajero {
+        - id: String
+        - nombre: String
+    }
+}
+
+' Relaciones
+Supermercado "1" *-- "N" Tienda
+Supermercado "1" -- "1" Pais
+Pais "1" *-- "1" Moneda
+Pais "1" *-- "1" Idioma
+Pais "1" *-- "1" ConfiguracionFiscal
+ConfiguracionFiscal "1" -- "N" TipoDescuento
+
+Ticket "1" *-- "1" Cabecera
+Ticket "1" *-- "1" Pie
+Ticket "1" *-- "N" LineaTicket
+Ticket "N" -- "1" Tienda
+Ticket "1" -- "1" Cajero
+
+LineaTicket <|-- LineaVenta
+LineaTicket <|-- LineaRepeticion
+LineaTicket <|-- LineaAnulacion
+LineaTicket <|-- LineaDevolucion
+
+LineaVenta "N" -- "1" Producto
+LineaRepeticion "1" -- "1" LineaTicket : referencia
+LineaAnulacion "1" -- "1" LineaTicket : anula
+LineaDevolucion "1" -- "1" Producto
+
+Pie "1" -- "1" MetodoPago
+
+MetodoPago <|-- PagoEfectivo
+MetodoPago <|-- PagoTarjeta
+MetodoPago <|-- PagoMovil
+MetodoPago <|-- PagoCheque
+
+Carrito "1" *-- "N" ItemCarrito
+ItemCarrito "N" -- "1" Producto
+
+@enduml
+

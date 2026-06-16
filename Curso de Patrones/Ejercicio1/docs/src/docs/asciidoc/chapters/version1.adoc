@@ -1,0 +1,442 @@
+﻿
+- _Versión 1_: *Mastermind*
+(branch:[underline]#domainModel#)
+
+image::Dibujo.jpg[height32]
+
+- **_Requisitos_:**
+
+* _Funcionalidad: Básica ([underline]#(youtube, youtube, wiki)#)_
+
+* _Interfaz: Texto_
+
+* _Distribución: Standalone_
+
+* _Persistencia: No_
+
+- **_Vista de Casos de Uso:_**
+
+* [underline]#_Diagrama de Actores y Casos de Uso (svg)_#
+
+[plantuml,diagramaActoresCasosUso,svg]
+....
+
+actor Player
+usecase Start
+usecase ProposeCombination
+usecase Resume
+
+Player --> Start
+Player --> ProposeCombination
+Player --> Resume
+
+....
+
+* _Diagrama de Contexto (svg)_
+
+[plantuml,diagtamaContexto,svg}
+
+....
+
+[*] --> State0
+State0 --> State1 : Start
+State1 --> State1 : ProposeCombination
+State1 --> State2 : [isWinner || isLooser]Resume
+State2 --> State0 : [isResumed]
+State2 --> [*] : [else]
+
+....
+
+* *Prototipo de Interfaz*
+
+----- MASTERMIND -----
+****
+Propose a combination: hybo
+Wrong colors, they must be: rbygop
+Propose a combination: rrbo
+Repeated colors
+Propose a combination: rybog
+Wrong proposed combination length
+Propose a combination: rybo
+1 attempt(s):
+****
+rybo --> 1 blacks and 2 whites
+Propose a combination: pybo
+2 attempt(s):
+****
+rybo --> 1 blacks and 2 whites
+pybo --> 1 blacks and 1 whites
+Propose a combination: gybo
+3 attempt(s):
+****
+rybo --> 1 blacks and 2 whites
+pybo --> 1 blacks and 1 whites
+gybo --> 1 blacks and 2 whites
+Propose a combination: rgbo
+4 attempt(s):
+****
+rybo --> 1 blacks and 2 whites
+pybo --> 1 blacks and 1 whites
+gybo --> 1 blacks and 2 whites
+rgbo --> 0 blacks and 3 whites
+Propose a combination: rygo
+5 attempt(s):
+****
+rybo --> 1 blacks and 2 whites
+pybo --> 1 blacks and 1 whites
+gybo --> 1 blacks and 2 whites
+rgbo --> 0 blacks and 3 whites
+rygo --> 1 blacks and 3 whites
+Propose a combination: oyrg
+6 attempt(s):
+****
+rybo --> 1 blacks and 2 whites
+pybo --> 1 blacks and 1 whites
+gybo --> 1 blacks and 2 whites
+rgbo --> 0 blacks and 3 whites
+rygo --> 1 blacks and 3 whites
+oyrg --> 4 blacks and 0 whites
+You've won!!! ;-)
+Do you want to continue? (s/n): s
+----- MASTERMIND -----
+****
+Propose a combination: rybo
+1 attempt(s):
+****
+rybo --> 0 blacks and 2 whites
+Propose a combination: pybo
+2 attempt(s):
+****
+rybo --> 0 blacks and 2 whites
+pybo --> 0 blacks and 3 whites
+Propose a combination: gybo
+3 attempt(s):
+****
+rybo --> 0 blacks and 2 whites
+pybo --> 0 blacks and 3 whites
+gybo --> 1 blacks and 2 whites
+Propose a combination: gbpo
+4 attempt(s):
+****
+rybo --> 0 blacks and 2 whites
+pybo --> 0 blacks and 3 whites
+gybo --> 1 blacks and 2 whites
+gbpo --> 1 blacks and 2 whites
+Propose a combination: gpbo
+5 attempt(s):
+****
+rybo --> 0 blacks and 2 whites
+pybo --> 0 blacks and 3 whites
+gybo --> 1 blacks and 2 whites
+gbpo --> 1 blacks and 2 whites
+gpbo --> 2 blacks and 1 whites
+Propose a combination: bygo
+6 attempt(s):
+****
+rybo --> 0 blacks and 2 whites
+pybo --> 0 blacks and 3 whites
+gybo --> 1 blacks and 2 whites
+gbpo --> 1 blacks and 2 whites
+gpbo --> 2 blacks and 1 whites
+bygo --> 0 blacks and 3 whites
+Propose a combination: byro
+7 attempt(s):
+****
+rybo --> 0 blacks and 2 whites
+pybo --> 0 blacks and 3 whites
+gybo --> 1 blacks and 2 whites
+gbpo --> 1 blacks and 2 whites
+gpbo --> 2 blacks and 1 whites
+bygo --> 0 blacks and 3 whites
+byro --> 0 blacks and 2 whites
+Propose a combination: gryo
+8 attempt(s):
+****
+rybo --> 0 blacks and 2 whites
+pybo --> 0 blacks and 3 whites
+gybo --> 1 blacks and 2 whites
+gbpo --> 1 blacks and 2 whites
+gpbo --> 2 blacks and 1 whites
+bygo --> 0 blacks and 3 whites
+byro --> 0 blacks and 2 whites
+gryo --> 1 blacks and 2 whites
+Propose a combination: yorb
+9 attempt(s):
+****
+rybo --> 0 blacks and 2 whites
+pybo --> 0 blacks and 3 whites
+gybo --> 1 blacks and 2 whites
+gbpo --> 1 blacks and 2 whites
+gpbo --> 2 blacks and 1 whites
+bygo --> 0 blacks and 3 whites
+byro --> 0 blacks and 2 whites
+gryo --> 1 blacks and 2 whites
+yorb --> 0 blacks and 2 whites
+Propose a combination: broy
+10 attempt(s):
+****
+rybo --> 0 blacks and 2 whites
+pybo --> 0 blacks and 3 whites
+gybo --> 1 blacks and 2 whites
+gbpo --> 1 blacks and 2 whites
+gpbo --> 2 blacks and 1 whites
+bygo --> 0 blacks and 3 whites
+byro --> 0 blacks and 2 whites
+gryo --> 1 blacks and 2 whites
+yorb --> 0 blacks and 2 whites
+broy --> 2 blacks and 0 whites
+You've lost!!! :-(
+Do you want to continue? (s/n): n
+
+- **_Vista de Lógica/Diseño:** (branch: [underline] #domainModel#)_
+
+* **_Arquitectura (svg)** modelo del Dominio mediante Estrategias de Análisis Formal, Clásico, del Dominio, de Responsabilidades..._
+
+[plantuml,version1Arquitectura,svg]
+
+....
+
+package mastermind #DDDDDD { } 
+package java.util{ }
+mastermind .down.> java.util
+mastermind .down.> mastermind.utils
+
+package mastermind.utils #DDDDDD { } 
+package java.io{ }
+mastermind.utils .down.> java.io
+
+....
+
+* _mastermind (svg)_
+
+[plantuml,version1Mastermind,svg]
+
+....
+
+class  mastermind.Color{
++ {static} RED: Color
++ {static} BLUE: Color
++ {static} YELLOW: Color
++ {static} GREEN: Color
++ {static} ORANGE: Color
++ {static} PURPLE: Color
+- initial: char
+- Color(char)
++ {static} valueOf(String): Color
+~ {static} length(): int
+~ {static} getInstance(char): Color
+~ {static} getInstance(int): Color
+~ {static} allInitials(): String
+~ getInitial(): char
+}
+mastermind.Color ..> mastermind.Color
+
+class  mastermind.Combination{
+- {static} WIDTH: int
+# colors: List<Color>
+# Combination()
+~ {static} getWidth(): int
+}
+mastermind.utils.WithConsoleModel <|-down- mastermind.Combination
+mastermind.Combination *-down-> java.util.List
+mastermind.Combination *-down-> mastermind.Color
+
+class  mastermind.Error{
++ {static} DUPLICATED: Error
++ {static} WRONG_CHARACTERS: Error
++ {static} WRONG_LENGTH: Error
+- message: String
+- Error(String)
++ {static} valueOf(String): Error
+~ getMessage(): String
+}
+mastermind.Error ..> mastermind.Error
+
+class  mastermind.Mastermind{
+~ {static} NO_ERROR: int
+- {static} MAX_LONG: int
+- secretCombination: SecretCombination
+- proposedCombinations: List<ProposedCombination>
+- results: List<Result>
+- turn: int
+- Mastermind()
++ {static} main(String[]): void
+- proposeCombination(int[]): int
+- play(): void
+- getCodes(): int[][][]
+}
+mastermind.utils.WithConsoleModel <|-down- mastermind.Mastermind
+mastermind.Mastermind *-down-> java.util.List
+mastermind.Mastermind *-down-> mastermind.ProposedCombination
+mastermind.Mastermind *-down-> mastermind.Result
+mastermind.Mastermind *-down-> mastermind.SecretCombination
+mastermind.Mastermind ..> mastermind.Message
+
+class  mastermind.Message{
++ {static} TURN: Message
++ {static} SECRET: Message
++ {static} RESUME: Message
++ {static} RESULT: Message
++ {static} PROPOSED_COMBINATION: Message
++ {static} TITLE: Message
++ {static} WINNER: Message
++ {static} LOOSER: Message
+- message: String
+- Message(String)
++ {static} valueOf(String): Message
+~ getMessage(): String
+}
+mastermind.Message ..> mastermind.Message
+
+class  mastermind.ProposedCombination{
+- {static} ERROR_CODE: int
+~ ProposedCombination()
+~ contains(Color): boolean
+~ contains(int, Color): boolean
+~ {static} getInstance(int[]): ProposedCombination
+~ write(int[]): void
+~ read(): int[]
+~ {static} isValid(int[]): Error
+~ getCodes(): int[]
+}
+mastermind.Combination <|-down- mastermind.ProposedCombination
+mastermind.ProposedCombination ..> mastermind.ProposedCombination
+mastermind.ProposedCombination ..> mastermind.Error
+mastermind.ProposedCombination ..> mastermind.Message
+
+class  mastermind.Result{
+- blacks: int
+- whites: int
+~ Result(int, int)
+~ isWinner(): boolean
+~ getCodes(): int[]
+~ writeln(): void
+}
+mastermind.utils.WithConsoleModel <|-down- mastermind.Result
+mastermind.Result ..> mastermind.Message
+
+class  mastermind.SecretCombination{
+~ SecretCombination()
+~ getResult(ProposedCombination): Result
+~ writeln(): void
+}
+mastermind.Combination <|-down- mastermind.SecretCombination
+mastermind.SecretCombination ..> mastermind.ProposedCombination
+mastermind.SecretCombination ..> mastermind.Result
+mastermind.SecretCombination ..> mastermind.Message
+
+....
+
+* _mastermind.utils (svg)_
+
+[plantuml,mastermindUtils1,svg]
+
+....
+
+class  mastermind.utils.Console{
+- bufferedReader: BufferedReader
++ Console()
++ write(char): void
++ write(String): void
++ readInt(String): int
++ readChar(String): char
++ readString(String): String
++ writeln(int): void
++ writeln(String): void
++ writeln(): void
+- writeError(String): void
+}
+mastermind.utils.Console *-down-> java.io.BufferedReader
+
+class  mastermind.utils.WithConsoleModel{
+# console: Console
+# WithConsoleModel()
+}
+mastermind.utils.WithConsoleModel *-down-> mastermind.utils.Console
+
+class  mastermind.utils.YesNoDialog{
+- {static} AFIRMATIVE: char
+- {static} NEGATIVE: char
+- {static} QUESTION: String
+- {static} MESSAGE: String
++ YesNoDialog()
++ read(String): boolean
+- {static} isNegative(char): boolean
+- {static} isAfirmative(char): boolean
+}
+mastermind.utils.WithConsoleModel <|-down- mastermind.utils.YesNoDialog
+
+....
+
+- **_Vista de Desarrollo/Implementación:_**
+
+* _Diagrama de Implementación (svg)_
+
+[plantuml,diagramaImplementacion,svg]
+
+....
+
+package "  "  as mastermind {
+}
+package "  "  as mastermind.utils {
+}
+package "  "  as java.io {
+}
+package "  "  as java.util {
+}
+
+[mastermind.jar] as jar
+
+jar *--> mastermind
+jar *--> mastermind.utils
+jar *--> java.io
+jar *--> java.util
+
+....
+
+- **_Vista de Despliegue/Física:_**
+
+* _Diagrama de Despliegue (svg)_
+
+[plantuml,diagramaDespliegue,svg]
+
+....
+
+node node #DDDDDD [
+<b>Personal Computer</b>
+----
+memory : xxx Mb
+cpu : xxx GHz
+]
+
+[ masterming.jar ] as component
+
+node *--> component
+
+....
+
+* **_Vista de Procesos:** (no hay concurrencia)_
+
+- **_Problemas:_**
+
+* _Actuales:_
+
+** [red]#_Método largo: play de Mastermind, ..._#
+
+* _Futuros:_
+
+** _Nuevas funcionalidades: undo/redo, demo, estadísiticas, ..._
+
+*** [red]#_Tamaño de los Modelos: asumen la responsabilidad y crecen en líneas, métodos, atributos, ..._#
+
+*** [red]#_Open/Close en los Modelos: hay que modificar código de las clases que estaba funcionando previamente_#
+
+** _Nueva interfaz: Gráfica_
+
+*** [red]#_Tamaño de los Modelos: asumen la responsabilidad y crecen en líneas, métodos, atributos, ... con cada tecnología_#
+
+*** [red]#_Alto acoplamiento de los Modelos: a cada tecnología de interfaz (consola, gráficos, web, ...)_#
+
+*** [red]#_Baja cohesión de los Modelos: cada Modelo está gestionando sus atributos y las tecnologías de interfaz_#
+
+*** [red]#_Open/Close en los Modelos: hay que modificar código de las clases que estaba funcionando previamente para escoger una tecnología de vista u otra (if's anidados)_#

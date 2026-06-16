@@ -1,0 +1,434 @@
+@startuml modelo_de_diseno
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+skinparam packageFontSize 14
+
+title Modelo de Diseño - Aplicación de Patrones de Diseño\nSistema de Tickets para Cadena Internacional de Supermercados
+
+' =====================================================
+' ABSTRACT FACTORY - Familias de objetos por país
+' =====================================================
+package "Abstract Factory - Familias por País" #LightBlue {
+
+    interface CountryFactory <<interface>> {
+        + createTicketBuilder(): TicketBuilder
+        + createTaxStrategy(): TaxStrategy
+        + createDiscountStrategy(): DiscountStrategy
+        + createCurrencyFormatter(): CurrencyFormatter
+        + createReceiptRenderer(): ReceiptRenderer
+        + createPaymentMethods(): List<PaymentMethod>
+    }
+
+    class SpainFactory {
+        + createTicketBuilder(): SpainTicketBuilder
+        + createTaxStrategy(): SpainTaxStrategy
+        + createDiscountStrategy(): SpainDiscountStrategy
+        + createCurrencyFormatter(): EuroCurrencyFormatter
+        + createReceiptRenderer(): MonochromeDisplayRenderer
+        + createPaymentMethods(): List<PaymentMethod>
+    }
+
+    class FranceFactory {
+        + createTicketBuilder(): FranceTicketBuilder
+        + createTaxStrategy(): FranceTaxStrategy
+        + createDiscountStrategy(): FranceDiscountStrategy
+        + createCurrencyFormatter(): EuroCurrencyFormatter
+        + createReceiptRenderer(): GraphicDisplayRenderer
+        + createPaymentMethods(): List<PaymentMethod>
+    }
+
+    class USAFactory {
+        + createTicketBuilder(): USATicketBuilder
+        + createTaxStrategy(): USATaxStrategy
+        + createDiscountStrategy(): USADiscountStrategy
+        + createCurrencyFormatter(): DollarCurrencyFormatter
+        + createReceiptRenderer(): GraphicDisplayRenderer
+        + createPaymentMethods(): List<PaymentMethod>
+    }
+
+    class CountryFactoryProvider <<Singleton>> {
+        - factories: Map<String, CountryFactory>
+        + {static} getInstance(): CountryFactoryProvider
+        + getFactory(countryCode: String): CountryFactory
+    }
+
+    CountryFactory <|.. SpainFactory
+    CountryFactory <|.. FranceFactory
+    CountryFactory <|.. USAFactory
+    CountryFactoryProvider --> CountryFactory
+}
+
+' =====================================================
+' BUILDER - Construcción de tickets complejos
+' =====================================================
+package "Builder - Construcción de Tickets" #LightGreen {
+
+    interface TicketBuilder <<interface>> {
+        + reset(): void
+        + buildHeader(store: Store): void
+        + addSaleLine(product: Product, quantity: int): void
+        + addRepetitionLine(lineNumber: int): void
+        + addCancellationLine(lineNumber: int): void
+        + addReturnLine(product: Product): void
+        + buildFooter(paymentMethod: PaymentMethod): void
+        + getResult(): Ticket
+    }
+
+    abstract class AbstractTicketBuilder {
+        # ticket: Ticket
+        # taxStrategy: TaxStrategy
+        # discountStrategy: DiscountStrategy
+        + reset(): void
+        + {abstract} buildHeader(store: Store): void
+        + addSaleLine(product: Product, quantity: int): void
+        + {abstract} buildFooter(paymentMethod: PaymentMethod): void
+        + getResult(): Ticket
+    }
+
+    class SpainTicketBuilder {
+        + buildHeader(store: Store): void
+        + buildFooter(paymentMethod: PaymentMethod): void
+    }
+
+    class FranceTicketBuilder {
+        + buildHeader(store: Store): void
+        + buildFooter(paymentMethod: PaymentMethod): void
+    }
+
+    class TicketDirector {
+        - builder: TicketBuilder
+        + setBuilder(builder: TicketBuilder): void
+        + buildMinimalTicket(store: Store, items: List<CartItem>): Ticket
+        + buildFullTicket(store: Store, items: List<CartItem>, payment: PaymentMethod): Ticket
+    }
+
+    TicketBuilder <|.. AbstractTicketBuilder
+    AbstractTicketBuilder <|-- SpainTicketBuilder
+    AbstractTicketBuilder <|-- FranceTicketBuilder
+    TicketDirector --> TicketBuilder
+}
+
+' =====================================================
+' STRATEGY - Algoritmos intercambiables
+' =====================================================
+package "Strategy - Algoritmos por País" #LightYellow {
+
+    interface TaxStrategy <<interface>> {
+        + calculateTax(amount: BigDecimal, category: TaxCategory): BigDecimal
+        + getTaxRate(category: TaxCategory): BigDecimal
+        + isTaxIncludedInPrice(): boolean
+    }
+
+    class SpainTaxStrategy {
+        - VAT_GENERAL: BigDecimal = 21%
+        - VAT_REDUCED: BigDecimal = 10%
+        - VAT_SUPER_REDUCED: BigDecimal = 4%
+        + calculateTax(amount: BigDecimal, category: TaxCategory): BigDecimal
+        + isTaxIncludedInPrice(): boolean
+    }
+
+    class FranceTaxStrategy {
+        - TVA_NORMAL: BigDecimal = 20%
+        - TVA_INTERMEDIATE: BigDecimal = 10%
+        - TVA_REDUCED: BigDecimal = 5.5%
+        + calculateTax(amount: BigDecimal, category: TaxCategory): BigDecimal
+        + isTaxIncludedInPrice(): boolean
+    }
+
+    class USATaxStrategy {
+        - stateTaxRate: BigDecimal
+        + calculateTax(amount: BigDecimal, category: TaxCategory): BigDecimal
+        + isTaxIncludedInPrice(): boolean
+    }
+
+    interface DiscountStrategy <<interface>> {
+        + calculateDiscount(ticket: Ticket): BigDecimal
+        + supportsLineDiscount(): boolean
+        + supportsGlobalDiscount(): boolean
+    }
+
+    class SpainDiscountStrategy {
+        + calculateDiscount(ticket: Ticket): BigDecimal
+        + supportsLineDiscount(): boolean
+        + supportsGlobalDiscount(): boolean
+    }
+
+    class FranceDiscountStrategy {
+        + calculateDiscount(ticket: Ticket): BigDecimal
+        + supportsLineDiscount(): boolean
+        + supportsGlobalDiscount(): boolean
+    }
+
+    interface CurrencyFormatter <<interface>> {
+        + format(amount: BigDecimal): String
+        + getSymbol(): String
+        + getRoundingMode(): RoundingMode
+    }
+
+    class EuroCurrencyFormatter {
+        + format(amount: BigDecimal): String
+        + getSymbol(): String
+    }
+
+    class DollarCurrencyFormatter {
+        + format(amount: BigDecimal): String
+        + getSymbol(): String
+    }
+
+    TaxStrategy <|.. SpainTaxStrategy
+    TaxStrategy <|.. FranceTaxStrategy
+    TaxStrategy <|.. USATaxStrategy
+
+    DiscountStrategy <|.. SpainDiscountStrategy
+    DiscountStrategy <|.. FranceDiscountStrategy
+
+    CurrencyFormatter <|.. EuroCurrencyFormatter
+    CurrencyFormatter <|.. DollarCurrencyFormatter
+}
+
+' =====================================================
+' COMPOSITE - Estructura de líneas de ticket
+' =====================================================
+package "Composite - Líneas de Ticket" #LightPink {
+
+    interface TicketComponent <<interface>> {
+        + getAmount(): BigDecimal
+        + accept(visitor: TicketVisitor): void
+        + getDescription(): String
+    }
+
+    abstract class TicketLine {
+        # lineNumber: int
+        # description: String
+        + getLineNumber(): int
+        + getDescription(): String
+        + {abstract} getAmount(): BigDecimal
+    }
+
+    class SaleLine {
+        - product: Product
+        - quantity: int
+        - unitPrice: BigDecimal
+        + getAmount(): BigDecimal
+        + accept(visitor: TicketVisitor): void
+    }
+
+    class RepetitionLine {
+        - originalLine: TicketLine
+        + getAmount(): BigDecimal
+        + accept(visitor: TicketVisitor): void
+    }
+
+    class CancellationLine {
+        - cancelledLine: TicketLine
+        + getAmount(): BigDecimal
+        + accept(visitor: TicketVisitor): void
+    }
+
+    class ReturnLine {
+        - product: Product
+        - originalTicketId: String
+        + getAmount(): BigDecimal
+        + accept(visitor: TicketVisitor): void
+    }
+
+    class CompositeTicketSection {
+        - children: List<TicketComponent>
+        + add(component: TicketComponent): void
+        + remove(component: TicketComponent): void
+        + getAmount(): BigDecimal
+        + accept(visitor: TicketVisitor): void
+    }
+
+    TicketComponent <|.. TicketLine
+    TicketComponent <|.. CompositeTicketSection
+    TicketLine <|-- SaleLine
+    TicketLine <|-- RepetitionLine
+    TicketLine <|-- CancellationLine
+    TicketLine <|-- ReturnLine
+    CompositeTicketSection o-- TicketComponent
+}
+
+' =====================================================
+' VISITOR - Operaciones sobre el ticket
+' =====================================================
+package "Visitor - Operaciones" #LightCoral {
+
+    interface TicketVisitor <<interface>> {
+        + visitSaleLine(line: SaleLine): void
+        + visitRepetitionLine(line: RepetitionLine): void
+        + visitCancellationLine(line: CancellationLine): void
+        + visitReturnLine(line: ReturnLine): void
+        + visitCompositeSection(section: CompositeTicketSection): void
+    }
+
+    class TotalCalculatorVisitor {
+        - total: BigDecimal
+        - taxStrategy: TaxStrategy
+        + getTotal(): BigDecimal
+        + visitSaleLine(line: SaleLine): void
+        + visitCancellationLine(line: CancellationLine): void
+    }
+
+    class PrinterVisitor {
+        - output: StringBuilder
+        - currencyFormatter: CurrencyFormatter
+        + getOutput(): String
+        + visitSaleLine(line: SaleLine): void
+        + visitCancellationLine(line: CancellationLine): void
+    }
+
+    class InventoryUpdateVisitor {
+        - inventoryService: InventoryService
+        + visitSaleLine(line: SaleLine): void
+        + visitReturnLine(line: ReturnLine): void
+    }
+
+    class DiscountApplierVisitor {
+        - discountStrategy: DiscountStrategy
+        - totalDiscount: BigDecimal
+        + getTotalDiscount(): BigDecimal
+        + visitSaleLine(line: SaleLine): void
+    }
+
+    TicketVisitor <|.. TotalCalculatorVisitor
+    TicketVisitor <|.. PrinterVisitor
+    TicketVisitor <|.. InventoryUpdateVisitor
+    TicketVisitor <|.. DiscountApplierVisitor
+}
+
+' =====================================================
+' COMMAND - Operaciones encapsuladas
+' =====================================================
+package "Command - Operaciones del Sistema" #Lavender {
+
+    interface Command <<interface>> {
+        + execute(): void
+        + undo(): void
+        + getDescription(): String
+    }
+
+    abstract class TicketCommand {
+        # ticket: Ticket
+        # previousState: TicketMemento
+        + execute(): void
+        + undo(): void
+    }
+
+    class AddLineCommand {
+        - line: TicketLine
+        + execute(): void
+        + undo(): void
+        + getDescription(): String
+    }
+
+    class RemoveLineCommand {
+        - lineNumber: int
+        - removedLine: TicketLine
+        + execute(): void
+        + undo(): void
+        + getDescription(): String
+    }
+
+    class ApplyDiscountCommand {
+        - discountStrategy: DiscountStrategy
+        - appliedDiscount: BigDecimal
+        + execute(): void
+        + undo(): void
+        + getDescription(): String
+    }
+
+    class ProcessPaymentCommand {
+        - paymentMethod: PaymentMethod
+        - amount: BigDecimal
+        + execute(): void
+        + undo(): void
+        + getDescription(): String
+    }
+
+    class CommandInvoker {
+        - history: Stack<Command>
+        - redoStack: Stack<Command>
+        + executeCommand(command: Command): void
+        + undo(): void
+        + redo(): void
+    }
+
+    Command <|.. TicketCommand
+    TicketCommand <|-- AddLineCommand
+    TicketCommand <|-- RemoveLineCommand
+    TicketCommand <|-- ApplyDiscountCommand
+    TicketCommand <|-- ProcessPaymentCommand
+    CommandInvoker --> Command
+}
+
+' =====================================================
+' TEMPLATE METHOD - Proceso de ticket por país
+' =====================================================
+package "Template Method - Proceso de Ticket" #MistyRose {
+
+    abstract class TicketProcessor {
+        # countryFactory: CountryFactory
+        + processTicket(cart: Cart): Ticket
+        # {abstract} validateCart(cart: Cart): boolean
+        # buildTicket(cart: Cart): Ticket
+        # {abstract} applyLocalTaxes(ticket: Ticket): void
+        # {abstract} applyLocalDiscounts(ticket: Ticket): void
+        # {abstract} formatReceipt(ticket: Ticket): String
+        # {abstract} notifyLocalSystems(ticket: Ticket): void
+    }
+
+    class SpainTicketProcessor {
+        # validateCart(cart: Cart): boolean
+        # applyLocalTaxes(ticket: Ticket): void
+        # applyLocalDiscounts(ticket: Ticket): void
+        # formatReceipt(ticket: Ticket): String
+        # notifyLocalSystems(ticket: Ticket): void
+    }
+
+    class FranceTicketProcessor {
+        # validateCart(cart: Cart): boolean
+        # applyLocalTaxes(ticket: Ticket): void
+        # applyLocalDiscounts(ticket: Ticket): void
+        # formatReceipt(ticket: Ticket): String
+        # notifyLocalSystems(ticket: Ticket): void
+    }
+
+    class USATicketProcessor {
+        - stateTaxCalculator: StateTaxCalculator
+        # validateCart(cart: Cart): boolean
+        # applyLocalTaxes(ticket: Ticket): void
+        # applyLocalDiscounts(ticket: Ticket): void
+        # formatReceipt(ticket: Ticket): String
+        # notifyLocalSystems(ticket: Ticket): void
+    }
+
+    TicketProcessor <|-- SpainTicketProcessor
+    TicketProcessor <|-- FranceTicketProcessor
+    TicketProcessor <|-- USATicketProcessor
+}
+
+' =====================================================
+' Relaciones entre patrones
+' =====================================================
+CountryFactory ..> TicketBuilder : creates
+CountryFactory ..> TaxStrategy : creates
+CountryFactory ..> DiscountStrategy : creates
+CountryFactory ..> CurrencyFormatter : creates
+
+AbstractTicketBuilder --> TaxStrategy : uses
+AbstractTicketBuilder --> DiscountStrategy : uses
+AbstractTicketBuilder --> TicketComponent : creates
+
+TotalCalculatorVisitor --> TaxStrategy : uses
+PrinterVisitor --> CurrencyFormatter : uses
+DiscountApplierVisitor --> DiscountStrategy : uses
+
+TicketCommand --> Ticket : modifies
+AddLineCommand --> TicketLine : adds
+
+TicketProcessor --> CountryFactory : uses
+
+@enduml
+

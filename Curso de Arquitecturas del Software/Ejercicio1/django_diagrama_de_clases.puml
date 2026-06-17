@@ -1,0 +1,434 @@
+@startuml django_diagrama_de_clases
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Diagrama de Clases - Arquitectura Django (MTV)
+caption Framework Django - Estilo Arquitectónico Model-Template-View
+
+' ============================================
+' CAPA DE ENTRADA (Front Controller)
+' ============================================
+package "Front Controller" #LightBlue {
+    class WSGIHandler <<Singleton>> {
+        - _middleware_chain: List[Middleware]
+        + __call__(environ, start_response): Response
+        + load_middleware(): void
+        + get_response(request: HttpRequest): HttpResponse
+    }
+
+    class BaseHandler {
+        - _middleware_chain: List[Middleware]
+        + load_middleware(): void
+        + get_response(request: HttpRequest): HttpResponse
+        # _get_response(request: HttpRequest): HttpResponse
+    }
+
+    WSGIHandler --|> BaseHandler
+}
+
+' ============================================
+' CAPA DE REQUEST/RESPONSE
+' ============================================
+package "HTTP Objects" #LightYellow {
+    class HttpRequest {
+        + method: str
+        + path: str
+        + GET: QueryDict
+        + POST: QueryDict
+        + COOKIES: dict
+        + META: dict
+        + session: SessionStore
+        + user: User
+        + body: bytes
+        + content_type: str
+    }
+
+    class HttpResponse {
+        + status_code: int
+        + content: bytes
+        + headers: dict
+        + charset: str
+        + __setitem__(header, value): void
+        + set_cookie(key, value, ...): void
+        + write(content): void
+    }
+
+    class JsonResponse {
+        + __init__(data: dict, encoder, safe, ...): void
+    }
+
+    JsonResponse --|> HttpResponse
+}
+
+' ============================================
+' CAPA DE MIDDLEWARE
+' ============================================
+package "Middleware Chain" #LightGreen {
+    interface MiddlewareInterface <<interface>> {
+        + __call__(request: HttpRequest): HttpResponse
+        + process_request(request: HttpRequest): HttpResponse | None
+        + process_view(request, view_func, view_args, view_kwargs): HttpResponse | None
+        + process_exception(request, exception): HttpResponse | None
+        + process_response(request, response): HttpResponse
+    }
+
+    class SecurityMiddleware {
+        + process_request(request): HttpResponse | None
+        + process_response(request, response): HttpResponse
+    }
+
+    class SessionMiddleware {
+        + process_request(request): void
+        + process_response(request, response): HttpResponse
+    }
+
+    class AuthenticationMiddleware {
+        + process_request(request): void
+    }
+
+    class CsrfViewMiddleware {
+        + process_view(request, callback, args, kwargs): HttpResponse | None
+    }
+
+    SecurityMiddleware ..|> MiddlewareInterface
+    SessionMiddleware ..|> MiddlewareInterface
+    AuthenticationMiddleware ..|> MiddlewareInterface
+    CsrfViewMiddleware ..|> MiddlewareInterface
+}
+
+' ============================================
+' CAPA DE URL ROUTING (Dispatcher)
+' ============================================
+package "URL Dispatcher" #LightCoral {
+    class URLResolver {
+        - pattern: Pattern
+        - url_patterns: List[URLPattern | URLResolver]
+        - namespace: str
+        + resolve(path: str): ResolverMatch
+        + reverse(viewname: str, args, kwargs): str
+    }
+
+    class URLPattern {
+        - pattern: Pattern
+        - callback: Callable
+        - name: str
+        + resolve(path: str): ResolverMatch
+    }
+
+    class ResolverMatch {
+        + func: Callable
+        + args: tuple
+        + kwargs: dict
+        + url_name: str
+        + app_names: List[str]
+        + namespaces: List[str]
+    }
+
+    class "path() / re_path()" as PathFunction <<function>> {
+        + route: str
+        + view: Callable
+        + kwargs: dict
+        + name: str
+    }
+
+    URLResolver "1" o-- "*" URLPattern : contains
+    URLResolver "1" o-- "*" URLResolver : nested
+    URLResolver ..> ResolverMatch : creates
+    URLPattern ..> ResolverMatch : creates
+    PathFunction ..> URLPattern : creates
+}
+
+' ============================================
+' CAPA VIEW (Controlador en MVC)
+' ============================================
+package "View Layer" #Wheat {
+    abstract class View <<abstract>> {
+        - http_method_names: List[str]
+        - request: HttpRequest
+        - args: tuple
+        - kwargs: dict
+        + as_view(cls, **initkwargs): Callable
+        + dispatch(request, *args, **kwargs): HttpResponse
+        + http_method_not_allowed(request): HttpResponse
+    }
+
+    class TemplateView {
+        - template_name: str
+        + get_context_data(**kwargs): dict
+        + get(request, *args, **kwargs): HttpResponse
+    }
+
+    class ListView {
+        - model: Model
+        - queryset: QuerySet
+        - context_object_name: str
+        - paginate_by: int
+        + get_queryset(): QuerySet
+        + get_context_data(**kwargs): dict
+    }
+
+    class DetailView {
+        - model: Model
+        - pk_url_kwarg: str
+        - slug_url_kwarg: str
+        + get_object(queryset=None): Model
+        + get_context_data(**kwargs): dict
+    }
+
+    class CreateView {
+        - model: Model
+        - form_class: Form
+        - success_url: str
+        + form_valid(form: Form): HttpResponse
+        + form_invalid(form: Form): HttpResponse
+    }
+
+    class UpdateView {
+        - model: Model
+        - form_class: Form
+        - success_url: str
+        + get_object(): Model
+        + form_valid(form: Form): HttpResponse
+    }
+
+    class DeleteView {
+        - model: Model
+        - success_url: str
+        + delete(request, *args, **kwargs): HttpResponse
+    }
+
+    TemplateView --|> View
+    ListView --|> View
+    DetailView --|> View
+    CreateView --|> View
+    UpdateView --|> View
+    DeleteView --|> View
+
+    note right of View
+        View es el "Controller" en MTV
+        Maneja la lógica de la petición
+    end note
+}
+
+' ============================================
+' CAPA TEMPLATE (Vista en MVC)
+' ============================================
+package "Template Engine" #Plum {
+    class Template {
+        - nodelist: NodeList
+        - source: str
+        + render(context: Context): str
+    }
+
+    class Engine {
+        - dirs: List[str]
+        - app_dirs: bool
+        - context_processors: List[str]
+        - loaders: List[Loader]
+        + get_template(template_name: str): Template
+        + render_to_string(template_name, context): str
+    }
+
+    class Context {
+        - dicts: List[dict]
+        + push(**kwargs): ContextDict
+        + pop(): dict
+        + flatten(): dict
+    }
+
+    class RequestContext {
+        - request: HttpRequest
+        + __init__(request, dict_, processors): void
+    }
+
+    abstract class Loader <<abstract>> {
+        + get_template(template_name: str): Template
+        + get_template_sources(template_name): Iterator
+    }
+
+    class FileSystemLoader {
+        - dirs: List[str]
+    }
+
+    class AppDirectoriesLoader {
+    }
+
+    RequestContext --|> Context
+    FileSystemLoader --|> Loader
+    AppDirectoriesLoader --|> Loader
+    Engine "1" o-- "*" Loader
+    Engine ..> Template : loads
+    Template ..> Context : uses
+
+    note right of Template
+        Template es la "View" en MTV
+        Responsable de la presentación
+    end note
+}
+
+' ============================================
+' CAPA MODEL (ORM)
+' ============================================
+package "Model Layer (ORM)" #PaleGreen {
+    class Model <<abstract>> {
+        - _meta: Options
+        - pk: Any
+        + save(force_insert, force_update, using): void
+        + delete(using, keep_parents): void
+        + full_clean(): void
+        + clean(): void
+        + validate_unique(): void
+    }
+
+    class Manager {
+        - model: Model
+        + get_queryset(): QuerySet
+        + all(): QuerySet
+        + filter(**kwargs): QuerySet
+        + exclude(**kwargs): QuerySet
+        + get(**kwargs): Model
+        + create(**kwargs): Model
+    }
+
+    class QuerySet {
+        - model: Model
+        - query: Query
+        + filter(**kwargs): QuerySet
+        + exclude(**kwargs): QuerySet
+        + order_by(*fields): QuerySet
+        + values(*fields): QuerySet
+        + annotate(**kwargs): QuerySet
+        + aggregate(**kwargs): dict
+        + first(): Model | None
+        + last(): Model | None
+        + count(): int
+        + exists(): bool
+        + delete(): tuple
+        + update(**kwargs): int
+    }
+
+    abstract class Field <<abstract>> {
+        - name: str
+        - verbose_name: str
+        - null: bool
+        - blank: bool
+        - default: Any
+        + to_python(value): Any
+        + validate(value, model_instance): void
+        + db_type(connection): str
+    }
+
+    class CharField {
+        - max_length: int
+    }
+
+    class IntegerField {
+    }
+
+    class ForeignKey {
+        - to: Model
+        - on_delete: Callable
+        - related_name: str
+    }
+
+    class ManyToManyField {
+        - to: Model
+        - related_name: str
+    }
+
+    CharField --|> Field
+    IntegerField --|> Field
+    ForeignKey --|> Field
+    ManyToManyField --|> Field
+
+    Model "1" *-- "*" Field : has
+    Model "1" -- "1" Manager : objects
+    Manager ..> QuerySet : returns
+    QuerySet ..> Model : yields
+
+    note right of Model
+        Model es el "Model" en MTV
+        Mapeo Objeto-Relacional (ORM)
+    end note
+}
+
+' ============================================
+' CAPA DE BASE DE DATOS
+' ============================================
+package "Database Backend" #LightGray {
+    interface DatabaseWrapper <<interface>> {
+        + cursor(): Cursor
+        + commit(): void
+        + rollback(): void
+        + close(): void
+    }
+
+    class Cursor {
+        + execute(sql, params): void
+        + executemany(sql, params_list): void
+        + fetchone(): tuple
+        + fetchall(): List[tuple]
+    }
+
+    class DatabaseBackend <<abstract>> {
+        - vendor: str
+        - connection: Connection
+        + get_connection_params(): dict
+        + create_cursor(name): Cursor
+    }
+
+    class SQLiteBackend {
+    }
+
+    class PostgreSQLBackend {
+    }
+
+    class MySQLBackend {
+    }
+
+    SQLiteBackend --|> DatabaseBackend
+    PostgreSQLBackend --|> DatabaseBackend
+    MySQLBackend --|> DatabaseBackend
+    DatabaseBackend ..|> DatabaseWrapper
+    DatabaseWrapper ..> Cursor : creates
+}
+
+' ============================================
+' RELACIONES ENTRE CAPAS
+' ============================================
+BaseHandler ..> HttpRequest : processes
+BaseHandler ..> HttpResponse : returns
+BaseHandler ..> MiddlewareInterface : uses
+BaseHandler ..> URLResolver : uses
+
+URLResolver ..> View : resolves to
+View ..> HttpRequest : receives
+View ..> HttpResponse : returns
+View ..> Template : uses
+View ..> Model : queries
+
+Template ..> Context : renders with
+Manager ..> DatabaseWrapper : uses
+
+' ============================================
+' NOTAS ARQUITECTÓNICAS
+' ============================================
+note as N1
+    **Arquitectura MTV (Model-Template-View)**
+
+    Django implementa una variante de MVC:
+    - **Model**: Capa de datos con ORM
+    - **Template**: Capa de presentación
+    - **View**: Lógica de control (Controlador)
+
+    Componentes adicionales:
+    - **WSGIHandler**: Front Controller
+    - **Middleware**: Cadena de responsabilidad
+    - **URLResolver**: Patrón Router/Dispatcher
+end note
+
+@enduml
+
+

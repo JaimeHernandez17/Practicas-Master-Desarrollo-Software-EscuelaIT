@@ -1,0 +1,197 @@
+@startuml django_diagrama_de_secuencia
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam maxMessageSize 200
+skinparam shadowing false
+
+title Diagrama de Secuencia - Flujo de Peticion HTTP en Django
+caption Framework Django (MTV) - Ciclo Request/Response
+
+actor "Cliente\n(Browser)" as Client
+participant "Web Server\n(Gunicorn/uWSGI)" as Server
+participant "WSGIHandler\n(Front Controller)" as WSGI
+participant "Middleware\nChain" as Middleware
+participant "URLResolver\n(Dispatcher)" as URLResolver
+participant "View\n(Controller)" as View
+participant "Template\nEngine" as Template
+participant "Model\n(ORM)" as Model
+database "Database" as DB
+
+== Fase 1: Recepción de la Petición ==
+
+Client -> Server: HTTP Request\n(GET /articles/1/)
+activate Server
+
+Server -> WSGI: __call__(environ, start_response)
+activate WSGI
+
+note right of WSGI
+    El WSGIHandler actúa como
+    Front Controller, punto de
+    entrada único para todas
+    las peticiones
+end note
+
+WSGI -> WSGI: Crear HttpRequest\ndesde environ
+create "HttpRequest" as Request
+WSGI -> Request: new HttpRequest(environ)
+
+== Fase 2: Cadena de Middleware (Request) ==
+
+WSGI -> Middleware: get_response(request)
+activate Middleware
+
+note over Middleware
+    Los middlewares se ejecutan en
+    orden según MIDDLEWARE setting
+end note
+
+group Middleware Request Phase
+    Middleware -> Middleware: SecurityMiddleware\n.process_request(request)
+    Middleware -> Middleware: SessionMiddleware\n.process_request(request)
+    note right: Carga sesión en request.session
+    Middleware -> Middleware: AuthenticationMiddleware\n.process_request(request)
+    note right: Carga usuario en request.user
+    Middleware -> Middleware: CsrfViewMiddleware\n.process_request(request)
+end
+
+== Fase 3: URL Routing (Dispatcher) ==
+
+Middleware -> URLResolver: resolve(request.path)
+activate URLResolver
+
+URLResolver -> URLResolver: Match path against\nurl_patterns
+URLResolver -> URLResolver: Extract view_func,\nargs, kwargs
+
+create "ResolverMatch" as Match
+URLResolver -> Match: new ResolverMatch(\nfunc, args, kwargs, url_name)
+URLResolver --> Middleware: ResolverMatch
+deactivate URLResolver
+
+== Fase 4: Middleware View Phase ==
+
+group Middleware View Phase
+    Middleware -> Middleware: CsrfViewMiddleware\n.process_view(request, view_func,\nview_args, view_kwargs)
+    note right: Valida CSRF token
+end
+
+== Fase 5: Ejecución de la View ==
+
+Middleware -> View: view_func(request, *args, **kwargs)
+activate View
+
+note right of View
+    La View en Django es el
+    equivalente al Controller
+    en MVC tradicional
+end note
+
+alt Class-Based View
+    View -> View: dispatch(request, *args, **kwargs)
+    View -> View: get(request, *args, **kwargs)
+end
+
+== Fase 6: Interacción con el Modelo (ORM) ==
+
+View -> Model: objects.get(pk=1)
+activate Model
+
+Model -> Model: Manager.get_queryset()
+Model -> Model: QuerySet.filter(pk=1)
+Model -> DB: SELECT * FROM articles WHERE id=1
+activate DB
+DB --> Model: Row data
+deactivate DB
+
+Model -> Model: Hydrate Model instance
+Model --> View: Article instance
+deactivate Model
+
+== Fase 7: Preparación del Contexto ==
+
+View -> View: get_context_data(\nobject=article)
+
+note right of View
+    El contexto contiene los datos
+    que serán pasados al template
+end note
+
+== Fase 8: Renderizado del Template ==
+
+View -> Template: render_to_string(\n'article_detail.html', context)
+activate Template
+
+Template -> Template: Engine.get_template(\n'article_detail.html')
+Template -> Template: Loader.load_template()
+
+note right of Template
+    El Template en Django es la
+    capa de presentación (View en MVC)
+end note
+
+Template -> Template: Template.render(\nRequestContext(request, context))
+
+group Template Processing
+    Template -> Template: Parse template nodes
+    Template -> Template: Resolve variables\nfrom context
+    Template -> Template: Execute template tags
+    Template -> Template: Apply filters
+end
+
+Template --> View: HTML string
+deactivate Template
+
+== Fase 9: Creación de la Response ==
+
+View -> View: Create HttpResponse\nwith rendered content
+
+create "HttpResponse" as Response
+View -> Response: new HttpResponse(\ncontent, content_type,\nstatus=200)
+
+View --> Middleware: HttpResponse
+deactivate View
+
+== Fase 10: Cadena de Middleware (Response) ==
+
+group Middleware Response Phase
+    note over Middleware
+        Middlewares se ejecutan en
+        orden inverso para Response
+    end note
+
+    Middleware -> Middleware: CsrfViewMiddleware\n.process_response(request, response)
+    Middleware -> Middleware: AuthenticationMiddleware\n.process_response(request, response)
+    Middleware -> Middleware: SessionMiddleware\n.process_response(request, response)
+    note right: Guarda cambios en sesión
+    Middleware -> Middleware: SecurityMiddleware\n.process_response(request, response)
+    note right: Añade headers de seguridad\n(X-Frame-Options, etc.)
+end
+
+Middleware --> WSGI: HttpResponse
+deactivate Middleware
+
+== Fase 11: Envío de la Respuesta ==
+
+WSGI -> WSGI: start_response(\nstatus, response_headers)
+WSGI --> Server: [response.content]
+deactivate WSGI
+
+Server --> Client: HTTP Response\n(200 OK + HTML)
+deactivate Server
+
+== Flujo Alternativo: Error Handling ==
+
+note over WSGI, View
+    **Manejo de Excepciones:**
+
+    1. View lanza excepción (ej: Http404)
+    2. Middlewares reciben process_exception()
+    3. Si ninguno maneja, Django busca
+       handler404/handler500 en urls.py
+    4. Se renderiza template de error
+    5. Response pasa por middleware chain
+end note
+
+@enduml
+
+

@@ -1,0 +1,276 @@
+@startuml Diagrama de Clases Mastermind - Relaciones Revisadas
+
+title Diagrama de Clases - Mastermind\nRelaciones entre clases revisadas
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+skinparam backgroundColor #FEFEFE
+
+' ============================================================
+' LEYENDA DE RELACIONES
+' ============================================================
+legend right
+  |= Símbolo |= Relación |= Descripción |
+  | *-- | Composición | La parte no vive sin el todo (mismo ciclo de vida) |
+  | o-- | Agregación | La parte puede existir fuera del todo |
+  | --> | Asociación | Un objeto conoce a otro pero no lo posee |
+  | ..> | Dependencia | Uso transitorio (parámetro, retorno, llamada) |
+  | <|-- | Herencia | Subtipado |
+endlegend
+
+' ============================================================
+' ENUMERACIONES
+' ============================================================
+
+enum Color {
+    ROJO
+    AZUL
+    VERDE
+    AMARILLO
+    ROSA
+    BLANCO
+    NEGRO
+    MARRON
+}
+
+' ============================================================
+' CLASE PRINCIPAL - CONTROLADOR DEL JUEGO
+' ============================================================
+
+class Mastermind {
+    - juegoActual: int
+    - numeroJuegos: int
+    --
+    + iniciarPartida(): void
+    + jugar(): void
+    + cambiarRoles(): void
+    + finalizarPartida(): void
+    + obtenerGanador(): Jugador
+    + estaFinalizada(): boolean
+}
+
+' ============================================================
+' CLASES DEL DOMINIO
+' ============================================================
+
+class Jugador {
+    - nombre: String
+    - esCreador: boolean
+    --
+    + getNombre(): String
+    + getPuntuacion(): int
+    + esCreador(): boolean
+    + crearCodigoSecreto(colores: List<Color>): void
+    + realizarIntento(colores: List<Color>): Intento
+    + evaluarIntento(intento: Intento): Resultado
+    + sumarPuntos(puntos: int): void
+    + cambiarRol(): void
+}
+
+class Puntuacion {
+    - puntos: int
+    --
+    + sumar(puntos: int): void
+    + restar(puntos: int): void
+    + getPuntos(): int
+    + reset(): void
+}
+
+class Tablero {
+    - numeroFilasUsadas: int
+    - capacidadMaxima: int = 12
+    --
+    + colocarIntento(intento: Intento): boolean
+    + colocarResultado(resultado: Resultado): void
+    + getNumeroIntentos(): int
+    + estaLleno(): boolean
+    + limpiar(): void
+    + mostrar(): void
+}
+
+abstract class Combinacion {
+    {static} + LONGITUD_CODIGO: int = 5
+    # colores: List<Color>
+    --
+    + setColor(posicion: int, color: Color): void
+    + getColor(posicion: int): Color
+    + getColores(): List<Color>
+    + esValida(): boolean
+}
+
+class CodigoSecreto {
+    - oculto: boolean
+    --
+    + crear(colores: List<Color>): boolean
+    + validar(): boolean
+    + comparar(intento: Intento): Resultado
+    + ocultar(): void
+    + revelar(): void
+}
+
+class Intento {
+    - numeroIntento: int
+    --
+    + agregarColor(posicion: int, color: Color): void
+    + esCompleto(): boolean
+    + esValido(): boolean
+    + getNumeroIntento(): int
+}
+
+class Resultado {
+    - espigasNegras: int
+    - espigasBlancas: int
+    --
+    + calcular(codigo: CodigoSecreto, intento: Intento): void
+    + getNegras(): int
+    + getBlancas(): int
+    + esAcierto(): boolean
+    + toString(): String
+}
+
+class Validador {
+    --
+    {static} + validarCodigo(colores: List<Color>): boolean
+    {static} + validarIntento(colores: List<Color>): boolean
+    {static} + validarLongitud(colores: List<Color>): boolean
+    {static} + validarColores(colores: List<Color>): boolean
+}
+
+' ============================================================
+' RELACIONES - APLICANDO CONCEPTOS DE DISEÑO OO
+' ============================================================
+
+' --- COMPOSICIÓN (*--) ---
+' La parte no vive sin el todo, mismo ciclo de vida
+
+' El Tablero es parte integral del juego Mastermind
+' Si el juego se destruye, el tablero también
+Mastermind "1" *-- "1" Tablero : contiene >
+
+' El CodigoSecreto existe solo durante el juego
+' Es creado para cada partida y destruido al finalizar
+Mastermind "1" *-- "1" CodigoSecreto : gestiona >
+
+' La Puntuacion es parte integral del Jugador
+' No tiene sentido una puntuación sin un jugador
+Jugador "1" *-- "1" Puntuacion : tiene >
+
+' Una Combinacion está compuesta por Colores
+' Los colores son parte esencial de la combinación
+Combinacion "1" *-- "5" Color : está compuesta de >
+
+
+' --- AGREGACIÓN (o--) ---
+' La parte puede existir fuera del todo
+
+' Los Jugadores existen independientemente del juego
+' Pueden participar en múltiples partidas
+Mastermind "1" o-- "2" Jugador : participan >
+
+' El Tablero almacena Intentos pero estos podrían
+' existir conceptualmente fuera del tablero
+Tablero "1" o-- "0..12" Intento : registra >
+
+' El Tablero almacena Resultados de cada intento
+Tablero "1" o-- "0..12" Resultado : muestra >
+
+
+' --- ASOCIACIÓN (-->) ---
+' Un objeto conoce a otro pero no lo posee
+
+' El Jugador crea el CodigoSecreto (cuando es creador)
+' pero no lo posee, es gestionado por Mastermind
+Jugador "1" --> "0..1" CodigoSecreto : crea >
+
+' El Jugador realiza Intentos durante el juego
+Jugador "1" --> "0..*" Intento : realiza >
+
+
+' --- DEPENDENCIA (..>) ---
+' Uso transitorio: parámetro, retorno, llamada
+
+' El Jugador usa el Resultado para evaluar
+' (recibe como retorno o parámetro)
+Jugador ..> Resultado : evalúa >
+
+' CodigoSecreto genera un Resultado al comparar
+' (retorna un Resultado)
+CodigoSecreto ..> Resultado : genera >
+
+' Intento se usa para generar un Resultado
+' (parámetro en comparación)
+Intento ..> Resultado : produce >
+
+' Validador usa CodigoSecreto e Intento como parámetros
+' para validación
+Validador ..> CodigoSecreto : valida >
+Validador ..> Intento : valida >
+
+' Resultado necesita CodigoSecreto e Intento para calcularse
+Resultado ..> CodigoSecreto : compara con >
+Resultado ..> Intento : compara con >
+
+
+' --- HERENCIA (<|--) ---
+' Subtipado - relación "es un"
+
+' CodigoSecreto es una Combinacion especializada
+Combinacion <|-- CodigoSecreto
+
+' Intento es una Combinacion especializada
+Combinacion <|-- Intento
+
+
+' ============================================================
+' NOTAS EXPLICATIVAS
+' ============================================================
+
+note top of Mastermind
+  **Controlador Principal**
+  Gestiona el ciclo de vida del juego.
+  Posee Tablero y CodigoSecreto (composición)
+  porque estos no tienen sentido fuera del juego.
+end note
+
+note right of Jugador
+  **Participante**
+  Agregado por Mastermind porque los
+  jugadores existen independientemente.
+  Posee su Puntuacion (composición).
+end note
+
+note bottom of Combinacion
+  **Clase Abstracta**
+  Define estructura común para
+  CodigoSecreto e Intento.
+  Ambos son "combinaciones de colores".
+end note
+
+note right of Resultado
+  **Pistas del juego:**
+  - Negra: color y posición correctos
+  - Blanca: color correcto, posición incorrecta
+  - Acierto: 5 espigas negras
+
+  Generado por dependencia,
+  no pertenece a ninguna clase.
+end note
+
+note left of Tablero
+  **Capacidad:** 12 intentos máximo
+
+  Agrega Intentos y Resultados
+  porque estos podrían existir
+  conceptualmente fuera del tablero
+  (p.ej. para análisis posterior).
+end note
+
+note bottom of Validador
+  **Clase de utilidad**
+  Solo dependencias (uso transitorio).
+  Recibe objetos como parámetros
+  para validarlos.
+end note
+
+@enduml
+
